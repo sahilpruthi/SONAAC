@@ -1,0 +1,21 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  aadhar_number: 1
+  dl_number: 1
+  dl_image: MyString
+  permanenet_address: MyString
+  temprorary_address: MyString
+  car_number: 1
+  car_registration_number: 1
+
+two:
+  name: MyString
+  aadhar_number: 1
+  dl_number: 1
+  dl_image: MyString
+  permanenet_address: MyString
+  temprorary_address: MyString
+  car_number: 1
+  car_registration_number: 1

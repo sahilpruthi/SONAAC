@@ -1,0 +1,7 @@
+https://github.com/jwt/ruby-jwt
+decoded_token = JWT.decode token, hmac_secret, true, { :algorithm => 'HS256' }
+begin
+  decoded_token = JWT.decode token, hmac_secret, true, { :algorithm => 'HS256' }
+rescue JWT::ExpiredSignature
+  # Handle expired token, e.g. logout user or deny access
+end
