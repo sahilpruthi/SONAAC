@@ -6,8 +6,10 @@ Rails.application.routes.draw do
         sessions: 'api/v1/user/sessions',
         registrations: 'api/v1/user/registrations'
          }
-      resources :drivers
-
+      devise_for :drivers, controllers: {
+        sessions: 'api/v1/driver/sessions',
+        registrations: 'api/v1/driver/registrations'
+         }
     end
   end
 

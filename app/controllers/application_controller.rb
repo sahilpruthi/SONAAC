@@ -1,5 +1,5 @@
 class ApplicationController < ActionController::Base
-  before_action :authenticate_user
+  # before_action :authenticate_user
   before_action :configure_permitted_parameters, if: :devise_controller?
 
   protect_from_forgery with: :exception
@@ -16,7 +16,6 @@ class ApplicationController < ActionController::Base
     if request.headers['X-USER-TOKEN']
       user_token = sanitize(request.headers['X-USER-TOKEN'])
       @user = User.find_by_token(user_token)
-
       if @user.nil?
         return unauthorize
       end
