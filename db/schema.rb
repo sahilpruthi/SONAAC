@@ -57,6 +57,7 @@ ActiveRecord::Schema.define(version: 20171227043937) do
     t.string   "user_name"
     t.integer  "phone_number"
     t.integer  "emergency_number"
+    t.integer  "token"
     t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   end

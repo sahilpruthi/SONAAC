@@ -1,4 +1,4 @@
-class Api::V1::User::RegistrationsController < Devise::RegistrationsController
+class Api::V1::User::RegistrationsController < ApiController
   # before_action :configure_sign_up_params, only: [:create]
   # before_action :configure_account_update_params, only: [:update]
 
@@ -9,28 +9,22 @@ class Api::V1::User::RegistrationsController < Devise::RegistrationsController
 
   # POST /resource
   def create
-    build_resource(sign_up_params)
-    resource.save
-    yield resource if block_given?
-    if resource.persisted?
-      if resource.active_for_authentication?
-        user = sign_up(resource_name, resource)
-
-        hmac_secret = 'my$ecretK3y'
+    resource = User.new(sign_up_params)
+    hmac_secret = 'my$ecretK3y'
         exp = Time.now.to_i + 4 * 3600
         exp_payload = { :data => 'data', :exp => exp }
         token = JWT.encode exp_payload, hmac_secret, 'HS256'
-
-        render json: {user: user, token: token}
-      else
-        expire_data_after_sign_in!
-        respond_with resource, location: after_inactive_sign_up_path_for(resource)
-      end
+    resource.token = token
+    resource.save
+    if resource.present?
+      render json: {status: true, user: resource, token: resource.token}
     else
-      clean_up_passwords resource
-      set_minimum_password_length
-      respond_with resource
-    end
+      render json: {status: false}
+     end
+  end
+
+  def sign_up_params
+    params.permit(:email, :user_name, :password, :phone_number, :emergency_number)
   end
 
   # GET /resource/edit
