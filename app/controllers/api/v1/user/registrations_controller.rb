@@ -3,9 +3,9 @@ class Api::V1::User::RegistrationsController < ApiController
   # before_action :configure_account_update_params, only: [:update]
 
   # GET /resource/sign_up
-  # def new
-  #   super
-  # end
+  def new
+
+  end
 
   # POST /resource
   def create
@@ -14,6 +14,7 @@ class Api::V1::User::RegistrationsController < ApiController
         exp = Time.now.to_i + 4 * 3600
         exp_payload = { :data => 'data', :exp => exp }
         token = JWT.encode exp_payload, hmac_secret, 'HS256'
+    binding.pry
     resource.token = token
     resource.save
     if resource.present?
