@@ -5,14 +5,15 @@ class DeviseCreateDrivers < ActiveRecord::Migration[5.0]
       t.string :email,              null: false, default: ""
       t.string :encrypted_password, null: false, default: ""
       t.string :name
-      t.integer :aadhar_number
-      t.integer :dl_number
+      t.string :aadhar_number
+      t.string :dl_number
       t.string :dl_image
       t.string :permanenet_address
       t.string :temprorary_address
-      t.integer :car_number
-      t.integer :car_registration_number
-      t.integer :driver_unique_number
+      t.string :car_number
+      t.string :car_registration_number
+      t.string :driver_unique_number
+      t.string :token
 
       ## Recoverable
       t.string   :reset_password_token

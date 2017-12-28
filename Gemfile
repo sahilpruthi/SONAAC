@@ -34,6 +34,7 @@ gem 'jbuilder', '~> 2.5'
 
 # gem authenticity token
 gem 'jwt'
+gem 'mixpanel-ruby'
 
 
 # Use Capistrano for deployment

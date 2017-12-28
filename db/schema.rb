@@ -19,14 +19,15 @@ ActiveRecord::Schema.define(version: 20171227043937) do
     t.string   "email",                   default: "", null: false
     t.string   "encrypted_password",      default: "", null: false
     t.string   "name"
-    t.integer  "aadhar_number"
-    t.integer  "dl_number"
+    t.string   "aadhar_number"
+    t.string   "dl_number"
     t.string   "dl_image"
     t.string   "permanenet_address"
     t.string   "temprorary_address"
-    t.integer  "car_number"
-    t.integer  "car_registration_number"
+    t.string   "car_number"
+    t.string   "car_registration_number"
     t.integer  "driver_unique_number"
+    t.string   "token"
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
@@ -55,9 +56,10 @@ ActiveRecord::Schema.define(version: 20171227043937) do
     t.datetime "created_at",                          null: false
     t.datetime "updated_at",                          null: false
     t.string   "user_name"
-    t.integer  "phone_number"
-    t.integer  "emergency_number"
-    t.integer  "token"
+    t.bigint   "phone_number"
+    t.bigint   "emergency_number"
+    t.string   "token"
+    t.string   "full_name"
     t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   end
