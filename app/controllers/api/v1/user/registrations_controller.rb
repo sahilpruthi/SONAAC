@@ -14,7 +14,6 @@ class Api::V1::User::RegistrationsController < ApiController
         exp = Time.now.to_i + 4 * 3600
         exp_payload = { :data => 'data', :exp => exp }
         token = JWT.encode exp_payload, hmac_secret, 'HS256'
-    binding.pry
     resource.token = token
     resource.save
     if resource.present?
