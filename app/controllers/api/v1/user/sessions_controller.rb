@@ -1,34 +1,30 @@
-class Api::V1::User::SessionsController < Devise::SessionsController
+class Api::V1::User::SessionsController < ApiController
   # before_action :configure_sign_in_params, only: [:create]
-
-  # GET /resource/sign_in
-  def new
-    super
-  end
 
   # POST /resource/sign_in
   def create
-     user = warden.authenticate!(auth_options)
+    binding.pry
+     user = auth_user_by_email
     if user
-        hmac_secret = 'my$ecretK3y'
-        exp = Time.now.to_i + 4 * 3600
-        exp_payload = { :data => 'data', :exp => exp }
-        token = JWT.encode exp_payload, hmac_secret, 'HS256'
-        render json: {status: true, data: {user: user, token: token}}
+        TRACKER.people.increment(user.id, {no_of_logins: 1})
+        render json: {status: true, data: {user: user}}
     else
         render jons: {status: false}
     end
   end
 
-  # DELETE /resource/sign_out
-  # def destroy
-  #   super
-  # end
+  private
+  def auth_user_by_email
+    binding.pry
+    user = User.find_by_email(user_params[:email])
 
-  # protected
+    if user && user.valid_password?(user_params[:password])
+      return user
+    end
+    return unauthorize
+  end
 
-  # If you have extra params to permit, append them to the sanitizer.
-  # def configure_sign_in_params
-  #   devise_parameter_sanitizer.permit(:sign_in, keys: [:attribute])
-  # end
+  def user_params
+    params.permit(:email, :password)
+  end
 end
