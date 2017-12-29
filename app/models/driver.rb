@@ -3,6 +3,7 @@ class Driver < ApplicationRecord
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
+  mount_uploader :dl_image, DriverUploader
 
   RANDOM_HASH = {
     0 => 99..999,

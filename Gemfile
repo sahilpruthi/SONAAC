@@ -34,6 +34,8 @@ gem 'jbuilder', '~> 2.5'
 
 # gem authenticity token
 gem 'jwt'
+gem 'carrierwave', '~> 1.0'
+
 
 
 # Use Capistrano for deployment

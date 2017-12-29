@@ -24,7 +24,10 @@ class Api::V1::User::RegistrationsController < ApiController
   end
 
   def sign_up_params
-    params.permit(:email, :user_name, :password, :phone_number, :emergency_number)
+    params.permit(
+      :email, :user_name, :password, :phone_number, :emergency_number,
+     :full_name
+     )
   end
 
   # GET /resource/edit
