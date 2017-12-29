@@ -10,20 +10,16 @@ class Api::V1::Driver::RegistrationsController < ApiController
   # POST /resource
   def create
     resource = Driver.new(sign_up_params)
-    id = Driver.last.present? ? Driver.last.id + 1 : 1
-    btwn = if id.between?(0,9)
-            Driver::RANDOM_HASH[0]
-           elsif resource.id.between?(10,99)
-            Driver::RANDOM_HASH[10]
-           else
-            Driver::RANDOM_HASH[100]
-           end
-    resource.driver_unique_number = resource.id.to_s + rand(btwn).to_s
-    resource.save
-    if resource.present?
+    hmac_secret = 'my$ecretK3y'
+    exp = Time.now.to_i + 4 * 3600
+    exp_payload = { :data => 'data', :exp => exp }
+    token = JWT.encode exp_payload, hmac_secret, 'HS256'
+    resource.token = token       
+    begin
+      resource.save!
       render json: {status: true, user: resource}
-    else
-      render json: {status: false}
+    rescue => error
+      render json: {status: false, message: error.message}
     end
   end
 

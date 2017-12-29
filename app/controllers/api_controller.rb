@@ -16,6 +16,10 @@ class ApiController < ApplicationController
     end
   end
 
+  def current_user
+    @user
+  end
+
   def unauthorize
     head status: :unauthorized
     return false
