@@ -11,7 +11,6 @@ class Driver < ApplicationRecord
   mount_uploader :dl_image, DriverUploader
 
   reverse_geocoded_by :latitude, :longitude
-  after_validation :reverse_geocode  # auto-fetch address
 
 private
 	CASE_NUMBER_RANGE = (0000..9999)
