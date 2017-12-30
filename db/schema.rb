@@ -26,8 +26,11 @@ ActiveRecord::Schema.define(version: 20171227043937) do
     t.string   "temprorary_address"
     t.string   "car_number"
     t.string   "car_registration_number"
-    t.integer  "driver_unique_number"
+    t.string   "driver_unique_number"
     t.string   "token"
+    t.integer  "price_rate"
+    t.float    "latitude"
+    t.float    "longitude"
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
@@ -55,11 +58,13 @@ ActiveRecord::Schema.define(version: 20171227043937) do
     t.string   "last_sign_in_ip"
     t.datetime "created_at",                          null: false
     t.datetime "updated_at",                          null: false
-    t.string   "user_name"
     t.bigint   "phone_number"
     t.bigint   "emergency_number"
     t.string   "token"
     t.string   "full_name"
+    t.float    "latitude"
+    t.float    "longitude"
+    t.string   "social_media"
     t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   end

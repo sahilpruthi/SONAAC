@@ -1,10 +1,6 @@
 class Api::V1::User::RegistrationsController < ApiController
-
-  # GET /resource/sign_up
-  def new
-  end
-
-  # POST /resource
+ 
+   # POST /resource
   def create
     resource = User.new(sign_up_params)
     hmac_secret = 'my$ecretK3y'
@@ -14,18 +10,26 @@ class Api::V1::User::RegistrationsController < ApiController
     resource.token = token
     begin
       resource.save!
-      render json: { status: true, user: resource}
+      render json: { status: true, user: resource }
     rescue => error
-      render json: { status: false, message: error}
+      render json: { status: false, message: error }
      end
   end
 
-  def sign_up_params
-    params.permit(
-      :email, :user_name, :password, :phone_number, :emergency_number,
-     :full_name
-     )
+  def update
+    if @user.update_attributes(sign_up_params)
+      render json: { status: true, user: @user }
+    else
+      render json: { status: false }
+    end
   end
 
+private
+  def sign_up_params
+    params.permit(
+      :email, :password, :phone_number, :emergency_number,
+     :full_name, :latitude, :longitude, :social_media
+     )
+  end
  
 end

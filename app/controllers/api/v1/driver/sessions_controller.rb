@@ -9,7 +9,7 @@ class Api::V1::Driver::SessionsController < ApiController
     if user
       render json: { status: true, user: user }
     else
-      render json: { status: false }
+      return unauthorize
     end
   end
 

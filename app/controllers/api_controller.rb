@@ -5,9 +5,7 @@ class ApiController < ApplicationController
   private
   def authenticate_user
     if request.headers['X-USER-TOKEN']
-      user_token = sanitize(request.headers['X-USER-TOKEN'])
-      @user = User.find_by_token(user_token)
-      #Unauthorize if a user object is not returned
+      @user = User.find_by_token(request.headers['X-USER-TOKEN'])
       if @user.nil?
         return unauthorize
       end
@@ -21,8 +19,7 @@ class ApiController < ApplicationController
   end
 
   def unauthorize
-    head status: :unauthorized
-    return false
+    render json: { status: false, message: "unauthorized"}
   end
 
 end

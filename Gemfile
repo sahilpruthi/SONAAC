@@ -36,6 +36,7 @@ gem 'jbuilder', '~> 2.5'
 gem 'jwt'
 gem 'carrierwave', '~> 1.0'
 gem 'mixpanel-ruby'
+gem 'geocoder'
 
 
 

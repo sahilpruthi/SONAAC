@@ -14,7 +14,9 @@ class DeviseCreateDrivers < ActiveRecord::Migration[5.0]
       t.string :car_registration_number
       t.string :driver_unique_number
       t.string :token
-
+      t.integer :price_rate
+      t.float   :latitude
+      t.float   :longitude
       ## Recoverable
       t.string   :reset_password_token
       t.datetime :reset_password_sent_at

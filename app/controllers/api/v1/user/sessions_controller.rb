@@ -6,20 +6,24 @@ class Api::V1::User::SessionsController < ApiController
   def create
      user = auth_user_by_email
     if user
-        # TRACKER.people.increment(user.id, {no_of_logins: 1})
-        render json: {status: true, data: {user: user}}
+      # TRACKER.people.increment(user.id, {no_of_logins: 1})
+      render json:{ status: true, data: {user: user} }
     else
-        render jons: {status: false}
+      return unauthorize
     end
   end
 
   private
   def auth_user_by_email
     user = User.find_by_email(user_params[:email])
-    if user && user.valid_password?(user_params[:password])
+    if user && user.social_media.present?
       return user
+    else
+      if user && user.valid_password?(user_params[:password])
+        return user
+      end
+      return nil
     end
-    return unauthorize
   end
 
   def user_params

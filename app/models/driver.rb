@@ -1,16 +1,17 @@
 class Driver < ApplicationRecord
-  # Include default devise modules. Others available are:
-  # :confirmable, :lockable, :timeoutable and :omniauthable
+
   before_create :assign_unique_driver_number
-
-
+  
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
-  mount_uploader :dl_image, DriverUploader
-
+  
   validates :email, uniqueness: true
   validates :driver_unique_number, uniqueness: :ture
 
+  mount_uploader :dl_image, DriverUploader
+
+  reverse_geocoded_by :latitude, :longitude
+  after_validation :reverse_geocode  # auto-fetch address
 
 private
 	CASE_NUMBER_RANGE = (0000..9999)
