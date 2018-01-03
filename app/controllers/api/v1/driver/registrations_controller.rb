@@ -7,7 +7,7 @@ class Api::V1::Driver::RegistrationsController < ApiController
     exp = Time.now.to_i + 4 * 3600
     exp_payload = { :data => 'data', :exp => exp }
     token = JWT.encode exp_payload, hmac_secret, 'HS256'
-    resource.token = token       
+    resource.token = token
     begin
       resource.save!
       render json: { status: true, user: resource }
@@ -27,6 +27,6 @@ class Api::V1::Driver::RegistrationsController < ApiController
   private
   def sign_up_params
     params.permit( :email, :name, :password, :aadhar_number, :dl_number, :permanenet_address,
-     :temprorary_address, :car_number, :car_registration_number, :latitude, :longitude )
+     :temprorary_address, :car_number, :dl_image, :car_registration_number, :latitude, :longitude )
   end
 end
