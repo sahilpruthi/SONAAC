@@ -7,5 +7,6 @@ class AddColumnForUser < ActiveRecord::Migration[5.0]
     add_column :users, :latitude,  :float
     add_column :users, :longitude, :float
     add_column :users, :social_media, :string
+    add_column :users, :social_id, :string
   end
 end

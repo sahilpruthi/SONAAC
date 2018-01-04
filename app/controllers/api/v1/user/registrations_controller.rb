@@ -1,19 +1,29 @@
 class Api::V1::User::RegistrationsController < ApiController
- 
+
    # POST /resource
+   before_action :check_email, only: [:create, :update]
+
   def create
-    resource = User.new(sign_up_params)
-    hmac_secret = 'my$ecretK3y'
-    exp = Time.now.to_i + 4 * 3600
-    exp_payload = { :data => 'data', :exp => exp }
-    token = JWT.encode exp_payload, hmac_secret, 'HS256'
-    resource.token = token
-    begin
-      resource.save!
-      render json: { status: true, user: resource }
-    rescue => error
-      render json: { status: false, message: error }
-     end
+    binding.pry
+    if !@user.present?
+      params[:email] = params[:social_id].to_s+"@gmail.com" unless params[:email].present?
+      resource = User.new(sign_up_params)
+      hmac_secret = 'my$ecretK3y'
+      exp = Time.now.to_i + 4 * 3600
+      exp_payload = { :data => 'data', :exp => exp }
+      token = JWT.encode exp_payload, hmac_secret, 'HS256'
+      resource.token = token
+      begin
+        resource.save!
+        render json: { status: true, user: resource }
+      rescue => error
+        render json: { status: false, message: error }
+       end
+    elsif @user.phone_number.present?
+        render json: { status: true, user: @user, already_exist: true }
+    else
+        render json: { status: true, user: @user, already_exist: false }
+    end
   end
 
   def update
@@ -24,12 +34,19 @@ class Api::V1::User::RegistrationsController < ApiController
     end
   end
 
+  def check_email
+    binding.pry
+    @user = if params[:email].present?
+              User.find_by_email(params[:email])
+            else
+              User.find_by_social_id(params[:social_id])
+            end
+  end
 private
   def sign_up_params
     params.permit(
       :email, :password, :phone_number, :emergency_number,
-     :full_name, :latitude, :longitude, :social_media
+     :full_name, :latitude, :longitude, :social_media, :social_id
      )
   end
- 
 end
