@@ -4,7 +4,6 @@ class Api::V1::User::RegistrationsController < ApiController
    before_action :check_email, only: [:create, :update]
 
   def create
-    binding.pry
     if !@user.present?
       params[:email] = params[:social_id].to_s+"@gmail.com" unless params[:email].present?
       resource = User.new(sign_up_params)
@@ -35,7 +34,6 @@ class Api::V1::User::RegistrationsController < ApiController
   end
 
   def check_email
-    binding.pry
     @user = if params[:email].present?
               User.find_by_email(params[:email])
             else
