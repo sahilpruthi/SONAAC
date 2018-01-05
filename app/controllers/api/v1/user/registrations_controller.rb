@@ -14,7 +14,7 @@ class Api::V1::User::RegistrationsController < ApiController
       resource.token = token
       begin
         resource.save!
-        render json: { status: true, user: resource }
+        render json: { status: true, user: resource, already_exist: true}
       rescue => error
         render json: { status: false, message: error }
        end
