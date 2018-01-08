@@ -1,11 +1,12 @@
 production:
-
+fcm_key: 'abcd'
 
 staging:
 
-
+fcm_key: 'abcd'
 
 development:
 
 gmail_username: 'sahilpruthi412@gmail.com'
 gmail_password: '9996190916'
+fcm_key: 'abcd'

@@ -1,4 +1,6 @@
 class Api::V1::CommonsController < ApiController
+	
+	 before_action :authenticate_user, only: %i(get_driver)
 
 	def get_driver
 		drivers = Driver.near([params[:latitude], params[:longitude]], 5, :units => :km)
@@ -13,5 +15,9 @@ class Api::V1::CommonsController < ApiController
 		else
 			render json: { status: false }
 		end
+	end
+
+	def send_notification
+		Driver.send_notification(params[:devises])
 	end
 end

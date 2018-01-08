@@ -1,5 +1,5 @@
 class Api::V1::Driver::RegistrationsController < ApiController
-
+  # before_action :authenticate_driver, only: %i(update)
   # POST /resource
   def create
     resource = Driver.new(sign_up_params)
