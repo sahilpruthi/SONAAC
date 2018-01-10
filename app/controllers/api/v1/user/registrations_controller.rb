@@ -1,12 +1,12 @@
 class Api::V1::User::RegistrationsController < ApiController
-
-   # POST /resource
-   before_action :check_email, only: [:create]
+  before_action :authenticate_user %i(update)
+  # POST /resource
+  before_action :check_email, only: %i(create)
 
   def create
     if !@user.present?
       params[:email] = params[:social_id].to_s+"@gmail.com" unless params[:email].present?
-      resource = User.new(sign_up_params)
+      resource = User.new(user_params)
       hmac_secret = 'my$ecretK3y'
       exp = Time.now.to_i + 4 * 3600
       exp_payload = { :data => 'data', :exp => exp }
@@ -26,10 +26,14 @@ class Api::V1::User::RegistrationsController < ApiController
   end
 
   def update
-    if @user.update_attributes(sign_up_params)
-      render json: { status: true, user: @user }
+    if @user.present?
+      if @user.update_attributes(user_params)
+        render json: { status: true, user: @user }
+      else
+        render json: { status: false, message: error }
+      end
     else
-      render json: { status: false, error: error }
+      render json: { status: false, message: 'Id not present!' }
     end
   end
 
@@ -41,10 +45,10 @@ class Api::V1::User::RegistrationsController < ApiController
             end
   end
 private
-  def sign_up_params
+  def user_params
     params.permit(
       :email, :password, :phone_number, :emergency_number,
-     :full_name, :latitude, :longitude, :social_media, :social_id
+     :full_name, :latitude, :longitude, :social_media, :social_id,:fcm_token
      )
   end
 end

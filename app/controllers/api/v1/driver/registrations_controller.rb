@@ -1,8 +1,9 @@
 class Api::V1::Driver::RegistrationsController < ApiController
-  # before_action :authenticate_driver, only: %i(update)
+  before_action :authenticate_driver, only: %i(update)
   # POST /resource
+
   def create
-    resource = Driver.new(sign_up_params)
+    resource = Driver.new(driver_params)
     hmac_secret = 'my$ecretK3y'
     exp = Time.now.to_i + 4 * 3600
     exp_payload = { :data => 'data', :exp => exp }
@@ -17,7 +18,7 @@ class Api::V1::Driver::RegistrationsController < ApiController
   end
 
   def update
-    if @user.update_attributes(sign_up_params)
+    if @driver.update_attributes(driver_params)
       render json: { status: true, user: @user }
     else
       render json: { status: false }
@@ -25,8 +26,9 @@ class Api::V1::Driver::RegistrationsController < ApiController
   end
 
   private
-  def sign_up_params
+  def driver_params
     params.permit( :email, :name, :password, :aadhar_number, :dl_number, :permanenet_address,
-     :temprorary_address, :car_number, :dl_image, :car_registration_number, :latitude, :longitude )
+      :temprorary_address, :car_number, :dl_image, :car_registration_number, :latitude, :longitude,
+       :fcm_token )
   end
 end

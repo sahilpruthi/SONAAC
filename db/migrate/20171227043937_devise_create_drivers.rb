@@ -15,8 +15,9 @@ class DeviseCreateDrivers < ActiveRecord::Migration[5.0]
       t.string :driver_unique_number
       t.string :token
       t.integer :price_rate
-      t.float   :latitude
-      t.float   :longitude
+      t.float  :latitude
+      t.float  :longitude
+      t.string :fcm_token
       ## Recoverable
       t.string   :reset_password_token
       t.datetime :reset_password_sent_at

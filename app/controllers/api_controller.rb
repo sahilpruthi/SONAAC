@@ -1,6 +1,5 @@
 class ApiController < ApplicationController
   skip_before_action :verify_authenticity_token
-  before_action :authenticate_user
   private
   def authenticate_user
     if params[:id].present?
@@ -16,13 +15,11 @@ class ApiController < ApplicationController
   end
 
   def authenticate_driver
-    if request.headers['X-USER-TOKEN']
-      @driver = Driver.find_by_token(request.headers['X-USER-TOKEN'])
+    if params[:id].present?
+      @driver = Driver.find(params[:id])
       if @driver.nil?
         return unauthorize
       end
-    else
-      return unauthorize
     end
   end
 
