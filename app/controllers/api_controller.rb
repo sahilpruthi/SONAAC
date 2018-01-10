@@ -1,15 +1,13 @@
 class ApiController < ApplicationController
   skip_before_action :verify_authenticity_token
-  # before_action :authenticate_user
+  before_action :authenticate_user
   private
   def authenticate_user
-    if request.headers['X-USER-TOKEN']
-      @user = User.find_by_token(request.headers['X-USER-TOKEN'])
+    if params[:id].present?
+      @user = User.find(params[:id])
       if @user.nil?
         return unauthorize
       end
-    else
-      return unauthorize
     end
   end
 

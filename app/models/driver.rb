@@ -1,10 +1,10 @@
-class Driver < ApplicationRecord  extends PushNotification
+class Driver < ApplicationRecord  #extends PushNotification
 
   before_create :assign_unique_driver_number
-  
+
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
-  
+
   validates :dl_number, uniqueness: true
   validates :aadhar_number, uniqueness: true
   validates :driver_unique_number, uniqueness: :ture

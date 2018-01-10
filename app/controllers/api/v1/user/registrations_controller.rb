@@ -1,7 +1,7 @@
 class Api::V1::User::RegistrationsController < ApiController
 
    # POST /resource
-   before_action :check_email, only: [:create, :update]
+   before_action :check_email, only: [:create]
 
   def create
     if !@user.present?
@@ -29,7 +29,7 @@ class Api::V1::User::RegistrationsController < ApiController
     if @user.update_attributes(sign_up_params)
       render json: { status: true, user: @user }
     else
-      render json: { status: false }
+      render json: { status: false, error: error }
     end
   end
 
