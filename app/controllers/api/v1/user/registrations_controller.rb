@@ -1,5 +1,5 @@
 class Api::V1::User::RegistrationsController < ApiController
-  before_action :authenticate_user %i(update)
+  before_action :authenticate_user, only: %i(update)
   # POST /resource
   before_action :check_email, only: %i(create)
 
