@@ -5,7 +5,13 @@ class Api::V1::User::RegistrationsController < ApiController
 
   def create
     if !@user.present?
-      params[:email] = params[:social_id].to_s+"@gmail.com" unless params[:email].present?
+      unless params[:email].present? && (params[:phone_number].present? ||
+       params[:emergency_number].present?)
+        @already_exist = false
+        params[:email] = params[:social_id].to_s+"@demo.com" 
+      else
+        @already_exist = true
+      end
       resource = User.new(user_params)
       hmac_secret = 'my$ecretK3y'
       exp = Time.now.to_i + 4 * 3600
@@ -14,7 +20,7 @@ class Api::V1::User::RegistrationsController < ApiController
       resource.token = token
       begin
         resource.save!
-        render json: { status: true, user: resource, already_exist: true}
+        render json: { status: true, user: resource, already_exist: @already_exist}
       rescue => error
         render json: { status: false, message: error }
        end
