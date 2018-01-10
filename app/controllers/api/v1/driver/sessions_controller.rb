@@ -5,9 +5,10 @@ class Api::V1::Driver::SessionsController < ApiController
 
   # POST /resource/sign_in
   def create
-     user = Driver.find_by_driver_unique_number(params[:key])
-    if user
-      render json: { status: true, user: user }
+     driver = Driver.find_by_driver_unique_number(params[:key])
+    if driver
+      driver.update_attributes(fcm_token: params[:fcm_token]) if params[:fcm_token].present?
+      render json: { status: true, driver: driver }
     else
       return unauthorize
     end

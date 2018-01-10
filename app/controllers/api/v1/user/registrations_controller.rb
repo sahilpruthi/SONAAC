@@ -30,7 +30,7 @@ class Api::V1::User::RegistrationsController < ApiController
       if @user.update_attributes(user_params)
         render json: { status: true, user: @user }
       else
-        render json: { status: false, message: error }
+        render json: { status: false }
       end
     else
       render json: { status: false, message: 'Id not present!' }

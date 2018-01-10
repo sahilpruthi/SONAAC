@@ -7,6 +7,7 @@ class Api::V1::User::SessionsController < ApiController
      user = auth_user_by_email
     if user
       # TRACKER.people.increment(user.id, {no_of_logins: 1})
+      user.update_attributes(fcm_token: params[:fcm_token]) if params[:fcm_token].present?
       render json:{ status: true, data: {user: user} }
     else
       return unauthorize
