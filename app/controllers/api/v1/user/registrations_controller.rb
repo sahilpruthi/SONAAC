@@ -5,13 +5,13 @@ class Api::V1::User::RegistrationsController < ApiController
 
   def create
     if !@user.present?
-      if !params[:email].present? && (params[:phone_number].present? ||
-       params[:emergency_number].present?)
-        @already_exist = false
-        params[:email] = params[:social_id].to_s+"@demo.com"
-      else
-        @already_exist = true
-      end
+      @already_exist = if !params[:email].present? || (!params[:phone_number].present? ||
+       !params[:emergency_number].present?)
+        false
+       else
+         true
+       end
+      params[:email] = params[:social_id].to_s+"@demo.com" unless params[:email].present?
       resource = User.new(user_params)
       hmac_secret = 'my$ecretK3y'
       exp = Time.now.to_i + 4 * 3600
