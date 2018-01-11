@@ -7,7 +7,7 @@ class Api::V1::User::RegistrationsController < ApiController
     if !@user.present?
       @already_exist = if !params[:email].present? || (!params[:phone_number].present? ||
        !params[:emergency_number].present?)
-        false
+         false
        else
          true
        end

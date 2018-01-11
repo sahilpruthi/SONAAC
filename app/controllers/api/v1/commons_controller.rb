@@ -5,7 +5,8 @@ class Api::V1::CommonsController < ApiController
 	def get_driver
 		drivers = Driver.near([params[:latitude], params[:longitude]], 2, :units => :km)
     if drivers.present?
-		  Driver.send_notification(drivers.pluck(:fcm_token).compact)
+		  notified =  Driver.send_notification(drivers.pluck(:fcm_token).compact)
+      puts(notified.dig(:response))
       render json: { status: true, drivers: drivers }
     else
       render json: { status: :false, available_drivers: 'No Driver Available in your location' }
