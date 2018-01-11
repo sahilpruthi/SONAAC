@@ -5,10 +5,10 @@ class Api::V1::User::RegistrationsController < ApiController
 
   def create
     if !@user.present?
-      unless params[:email].present? && (params[:phone_number].present? ||
+      if !params[:email].present? && (params[:phone_number].present? ||
        params[:emergency_number].present?)
         @already_exist = false
-        params[:email] = params[:social_id].to_s+"@demo.com" 
+        params[:email] = params[:social_id].to_s+"@demo.com"
       else
         @already_exist = true
       end
