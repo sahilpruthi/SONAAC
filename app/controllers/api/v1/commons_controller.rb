@@ -3,9 +3,12 @@ class Api::V1::CommonsController < ApiController
 	 before_action :authenticate_user, only: %i(get_driver)
 
 	def get_driver
-		drivers = Driver.near([params[:latitude], params[:longitude]], 5, :units => :km)
-		Driver.send_notification(params[:devises])
-    # render json: { status: :ture, available_drivers: drivers }
+		drivers = Driver.near([params[:latitude], params[:longitude]], 2, :units => :km)
+    if drivers.present?
+		  Driver.send_notification(drivers.pluck(:fcm_token).compact)
+    else
+      render json: { status: :false, available_drivers: 'No Driver Available' }
+    end
   end
 
 
