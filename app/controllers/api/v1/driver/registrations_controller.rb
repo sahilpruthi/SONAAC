@@ -11,7 +11,7 @@ class Api::V1::Driver::RegistrationsController < ApiController
     resource.token = token
     begin
       resource.save!
-      render json: { status: true, user: resource }
+      render json: { status: true, driver: resource }
     rescue => error
       render json: { status: false, message: error.message }
     end
@@ -19,7 +19,7 @@ class Api::V1::Driver::RegistrationsController < ApiController
 
   def update
     if @driver.update_attributes(driver_params)
-      render json: { status: true, user: @driver }
+      render json: { status: true, driver: @driver }
     else
       render json: { status: false }
     end
