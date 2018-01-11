@@ -19,7 +19,7 @@ class Api::V1::Driver::RegistrationsController < ApiController
 
   def update
     if @driver.update_attributes(driver_params)
-      render json: { status: true, user: @user }
+      render json: { status: true, user: @driver }
     else
       render json: { status: false }
     end
