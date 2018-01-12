@@ -10,10 +10,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171227043937) do
+ActiveRecord::Schema.define(version: 20180112162429) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "driver_user_fairs", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "driver_id"
+    t.integer  "fair_status"
+    t.integer  "price"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.index ["driver_id"], name: "index_driver_user_fairs_on_driver_id", using: :btree
+    t.index ["user_id"], name: "index_driver_user_fairs_on_user_id", using: :btree
+  end
 
   create_table "drivers", force: :cascade do |t|
     t.string   "email",                   default: "", null: false

@@ -14,6 +14,7 @@ Rails.application.routes.draw do
       # resource :common 
       post '/get_drivers_near_to_me', to: 'commons#get_driver'
       get '/check_user_existence/:email', to: 'commons#check_user'
+      post '/offer_trip', to: 'commons#notify_cutomer_for_price'
       
     end
   end

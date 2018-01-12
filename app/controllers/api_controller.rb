@@ -2,8 +2,8 @@ class ApiController < ApplicationController
   skip_before_action :verify_authenticity_token
   private
   def authenticate_user
-    if params[:id].present?
-      @user = User.find(params[:id])
+    if params[:user_id].present?
+      @user = User.find(params[:user_id])
       if @user.nil?
         return unauthorize
       end
@@ -15,8 +15,8 @@ class ApiController < ApplicationController
   end
 
   def authenticate_driver
-    if params[:id].present?
-      @driver = Driver.find(params[:id])
+    if params[:driver_id].present?
+      @driver = Driver.find(params[:driver_id])
       if @driver.nil?
         return unauthorize
       end

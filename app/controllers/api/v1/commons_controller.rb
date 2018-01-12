@@ -1,6 +1,7 @@
 class Api::V1::CommonsController < ApiController
 
 	 before_action :authenticate_user, only: %i(get_driver)
+   before_action :authenticate_driver, :authenticate_user,  only: %i(notify_cutomer_for_price)
 
 	def get_driver
     if @user.present?
@@ -29,9 +30,15 @@ class Api::V1::CommonsController < ApiController
     end
   end
 
+
+
   def notify_cutomer_for_price
-    if @user.present?
-      notified =  User.send_notification(@user.pluck(:fcm_token))
+    if @driver.present? && @user.present?
+      @driver.driver_user_fairs.create(user_id: params[:user_id], fair_status: 'offered', price: params[:price])
+      notified =  User.send_notification(@user.fcm_token, @driver)
+      render json: { status:true, message: 'notification  send'}
+    else
+      render json: { status:true, message: 'driver or user not present'}
     end
 	end
 end

@@ -13,6 +13,9 @@ class Driver < ApplicationRecord
 
   reverse_geocoded_by :latitude, :longitude
 
+  has_many :driver_user_fairs
+  has_many :users, through: :driver_user_fairs
+
 private
 	CASE_NUMBER_RANGE = (0000..9999)
 
