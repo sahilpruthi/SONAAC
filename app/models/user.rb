@@ -6,7 +6,7 @@ class User < ApplicationRecord
 
 
   def self.send_notification(device_key)
-    PushNotification.send_notidication(device_keys)
+    PushNotification.send_user_notidication(device_keys)
   end
 
 end
