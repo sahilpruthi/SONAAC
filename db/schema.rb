@@ -32,6 +32,7 @@ ActiveRecord::Schema.define(version: 20171227043937) do
     t.float    "latitude"
     t.float    "longitude"
     t.string   "fcm_token"
+    t.string   "phone_number"
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"

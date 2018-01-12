@@ -5,4 +5,8 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :trackable, :validatable
 
 
+  def self.send_notification(device_key)
+    PushNotification.send_notidication(device_keys)
+  end
+
 end
