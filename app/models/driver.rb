@@ -1,4 +1,5 @@
 class Driver < ApplicationRecord
+  includes PushNotification
   before_create :assign_unique_driver_number
 
   devise :database_authenticatable, :registerable,

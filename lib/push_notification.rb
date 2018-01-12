@@ -1,4 +1,4 @@
-class PushNotification
+module PushNotification
 
 	require 'fcm'
 	def self.send_notidication(device_keys, user, slat, slong, dlat, dlong)
