@@ -1,7 +1,7 @@
 class Api::V1::CommonsController < ApiController
 
-	 before_action :authenticate_user, only: %i(get_driver notify_cutomer_for_price)
-   before_action :authenticate_driver,  only: %i(notify_cutomer_for_price)
+	 before_action :authenticate_user, only: %i(get_driver notify_cutomer_for_price get_drivers_offer)
+   before_action :authenticate_driver,  only: %i(notify_cutomer_for_price, get_driver)
 
 	def get_driver
     if @user.present?
@@ -20,6 +20,10 @@ class Api::V1::CommonsController < ApiController
 
   end
 
+  def get_drivers_offer
+    offers = @user.driver_user_fairs.where(fair_status: 'offered')
+    render json:{ status: :true, drivers: offers.map(&:detail_object)}
+  end
 
   def check_user
     user = User.find_by_email(params[:email])
@@ -30,7 +34,9 @@ class Api::V1::CommonsController < ApiController
     end
   end
 
-
+  def get_driver
+    render json: {status: true, driver: @driver}
+  end
 
   def notify_cutomer_for_price
     if @driver.present? && @user.present?

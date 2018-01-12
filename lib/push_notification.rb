@@ -11,11 +11,10 @@ module PushNotification
 		            title: "SONAAC",
 		            body: "#{user.full_name}, need a lift",
 		            icon: "myicon",
-                source_lat: slat,
-                source_long: slong,
-                destination_lat: dlat,
-                destination_long: dlong
-              }
+                    source_lat: slat,
+                    source_long: slong,
+                    destination_lat: dlat,
+                    destination_long: dlong}
 		        }
 		response = fcm.send(registration_ids, options)
 	end

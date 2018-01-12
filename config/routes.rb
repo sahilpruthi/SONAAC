@@ -15,6 +15,8 @@ Rails.application.routes.draw do
       post '/get_drivers_near_to_me', to: 'commons#get_driver'
       get '/check_user_existence/:email', to: 'commons#check_user'
       post '/offer_trip', to: 'commons#notify_cutomer_for_price'
+      get '/get_drivers_offer/:user_id', to: 'commons#get_drivers_offer'
+      get 'get_driver/:driver_id', to: 'commons#get_driver'
       
     end
   end
