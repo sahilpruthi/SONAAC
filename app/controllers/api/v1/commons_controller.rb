@@ -1,7 +1,7 @@
 class Api::V1::CommonsController < ApiController
 
-	 before_action :authenticate_user, only: %i(get_driver)
-   before_action :authenticate_driver, :authenticate_user,  only: %i(notify_cutomer_for_price)
+	 before_action :authenticate_user, only: %i(get_driver notify_cutomer_for_price)
+   before_action :authenticate_driver,  only: %i(notify_cutomer_for_price)
 
 	def get_driver
     if @user.present?
