@@ -7,14 +7,17 @@ module PushNotification
 		options = {
 		        priority: "high",
 		        collapse_key: "updated_score",
-		        notification: {
-		            title: "SONAAC",
-		            body: "#{user.full_name}, need a lift",
-		            icon: "myicon",
+                data: {
+                    message: "#{user.full_name}, need a lift",
                     source_lat: slat,
                     source_long: slong,
                     destination_lat: dlat,
-                    destination_long: dlong}
+                    destination_long: dlong
+                    },
+		        notification: {
+		            title: "SONAAC",
+		            body: "#{user.full_name}, need a lift",      
+                    }
 		        }
 		response = fcm.send(registration_ids, options)
 	end
