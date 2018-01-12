@@ -28,6 +28,8 @@ module PushNotification
     options = {
             priority: "high",
             collapse_key: "updated_score",
+            data: {title: "SONAAC",
+                body: "#{driver.name}, offer's lift"},
             notification: {
                 title: "SONAAC",
                 body: "#{driver.name}, offer's lift",
