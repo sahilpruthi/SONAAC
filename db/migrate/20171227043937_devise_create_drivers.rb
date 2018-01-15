@@ -10,11 +10,8 @@ class DeviseCreateDrivers < ActiveRecord::Migration[5.0]
       t.string :dl_image
       t.string :permanenet_address
       t.string :temprorary_address
-      t.string :car_number
-      t.string :car_registration_number
       t.string :driver_unique_number
       t.string :token
-      t.integer :price_rate
       t.float  :latitude
       t.float  :longitude
       t.string :fcm_token

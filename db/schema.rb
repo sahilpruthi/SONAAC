@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180112162429) do
+ActiveRecord::Schema.define(version: 20180115172803) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -27,19 +27,16 @@ ActiveRecord::Schema.define(version: 20180112162429) do
   end
 
   create_table "drivers", force: :cascade do |t|
-    t.string   "email",                   default: "", null: false
-    t.string   "encrypted_password",      default: "", null: false
+    t.string   "email",                  default: "", null: false
+    t.string   "encrypted_password",     default: "", null: false
     t.string   "name"
     t.string   "aadhar_number"
     t.string   "dl_number"
     t.string   "dl_image"
     t.string   "permanenet_address"
     t.string   "temprorary_address"
-    t.string   "car_number"
-    t.string   "car_registration_number"
     t.string   "driver_unique_number"
     t.string   "token"
-    t.integer  "price_rate"
     t.float    "latitude"
     t.float    "longitude"
     t.string   "fcm_token"
@@ -47,13 +44,13 @@ ActiveRecord::Schema.define(version: 20180112162429) do
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",           default: 0,  null: false
+    t.integer  "sign_in_count",          default: 0,  null: false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
     t.inet     "current_sign_in_ip"
     t.inet     "last_sign_in_ip"
-    t.datetime "created_at",                           null: false
-    t.datetime "updated_at",                           null: false
+    t.datetime "created_at",                          null: false
+    t.datetime "updated_at",                          null: false
     t.index ["email"], name: "index_drivers_on_email", unique: true, using: :btree
     t.index ["reset_password_token"], name: "index_drivers_on_reset_password_token", unique: true, using: :btree
   end
@@ -82,6 +79,26 @@ ActiveRecord::Schema.define(version: 20180112162429) do
     t.string   "fcm_token"
     t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
+  end
+
+  create_table "vehicle_drivers", force: :cascade do |t|
+    t.integer  "vehicle_id"
+    t.integer  "driver_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["driver_id"], name: "index_vehicle_drivers_on_driver_id", using: :btree
+    t.index ["vehicle_id"], name: "index_vehicle_drivers_on_vehicle_id", using: :btree
+  end
+
+  create_table "vehicles", force: :cascade do |t|
+    t.string   "model_no",              null: false
+    t.string   "registration_no",       null: false
+    t.integer  "vehicle_type",          null: false
+    t.string   "vehicle_number",        null: false
+    t.string   "name"
+    t.string   "vehicle_unique_number"
+    t.datetime "created_at",            null: false
+    t.datetime "updated_at",            null: false
   end
 
 end

@@ -10,7 +10,7 @@ Rails.application.routes.draw do
         sessions: 'api/v1/driver/sessions',
         registrations: 'api/v1/driver/registrations'
          }
-
+      resources :vehicles
       # resource :common 
       post '/get_drivers_near_to_me', to: 'commons#get_nearest_drivers'
       get '/check_user_existence/:email', to: 'commons#check_user'
