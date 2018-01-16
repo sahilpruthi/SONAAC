@@ -28,4 +28,8 @@ class ApiController < ApplicationController
     render json: { status: false, message: "Invalid email or password"}
   end
 
+  def unauthorize_driver
+    render json: { status: false, message: "Invalid driver id or cab id"}
+  end
+
 end
