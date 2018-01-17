@@ -6,7 +6,7 @@ class Vehicle < ApplicationRecord
 	has_many :drivers, through: :vehilce_drivers
 
 	enum vehicle_type: %i(fourwheeler_local fourwheeler_outstation sevenwheeler_local sevenwheeler_outstations traveller bus)
-	validates :vehicle_type, :model_no, :registration_no, :vehicle_number, presence: true
+	validates :vehicle_type, :registration_no, :vehicle_number, presence: true
 	validates :registration_no, :vehicle_number, uniqueness: true
 
 	CASE_NUMBER_RANGE = (0000..9999)
