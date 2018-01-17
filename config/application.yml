@@ -1,12 +1,12 @@
 production:
-fcm_key: 'abcd'
+fcm_key: 'AAAARoAcxik:APA91bH3YhwdcexjqMHKtfGIuwhC1huDz_mOYMbPpTLKwQsA28pxyVxS0N-S-WvmJbXBJL9HjBtTqF6YnXqgLxgy-9bBqjoV9DISd-g86LMDd27LIfHbyrEVo0ziO3M3Jok6diUwr9bc'
 
 staging:
 
-fcm_key: 'abcd'
+fcm_key: 'AAAARoAcxik:APA91bH3YhwdcexjqMHKtfGIuwhC1huDz_mOYMbPpTLKwQsA28pxyVxS0N-S-WvmJbXBJL9HjBtTqF6YnXqgLxgy-9bBqjoV9DISd-g86LMDd27LIfHbyrEVo0ziO3M3Jok6diUwr9bc'
 
 development:
 
 gmail_username: 'sahilpruthi412@gmail.com'
 gmail_password: '9996190916'
-fcm_key: 'abcd'
+fcm_key: 'AAAARoAcxik:APA91bH3YhwdcexjqMHKtfGIuwhC1huDz_mOYMbPpTLKwQsA28pxyVxS0N-S-WvmJbXBJL9HjBtTqF6YnXqgLxgy-9bBqjoV9DISd-g86LMDd27LIfHbyrEVo0ziO3M3Jok6diUwr9bc'

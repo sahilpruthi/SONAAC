@@ -27,8 +27,8 @@ class Api::V1::Driver::RegistrationsController < ApiController
 
   private
   def driver_params
-    params.permit( :email, :name, :password, :aadhar_number, :dl_number, :permanenet_address,
-      :temprorary_address, :car_number, :dl_image, :car_registration_number, :latitude, :longitude,
-       :fcm_token, :phone_number)
+    params.permit(:email, :name, :password, :aadhar_number, :dl_number,
+     :permanenet_address, :temprorary_address, :car_number, :dl_image,
+     :car_registration_number, :latitude, :longitude, :fcm_token, :phone_number)
   end
 end

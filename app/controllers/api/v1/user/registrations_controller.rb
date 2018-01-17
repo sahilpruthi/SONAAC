@@ -11,16 +11,13 @@ class Api::V1::User::RegistrationsController < ApiController
        else
          true
        end
-      params[:email] = params[:social_id].to_s+"@demo.com" unless params[:email].present?
+      params[:email] = params[:social_id].to_s+"@demo.com" unless params[
+        :email].present?
       resource = User.new(user_params)
-      hmac_secret = 'my$ecretK3y'
-      exp = Time.now.to_i + 4 * 3600
-      exp_payload = { :data => 'data', :exp => exp }
-      token = JWT.encode exp_payload, hmac_secret, 'HS256'
-      resource.token = token
+      resource.token = create_token
       begin
         resource.save!
-        render json: { status: true, user: resource, already_exist: @already_exist}
+        render json: { status: true, user: resource, already_exist: @already_exist }
       rescue => error
         render json: { status: false, message: error }
        end
@@ -29,6 +26,13 @@ class Api::V1::User::RegistrationsController < ApiController
     else
         render json: { status: true, user: @user, already_exist: false }
     end
+  end
+
+  def create_token 
+    hmac_secret = 'my$ecretK3y'
+    exp = Time.now.to_i + 4 * 3600
+    exp_payload = { data: 'data', exp: exp }
+    token = JWT.encode exp_payload, hmac_secret, 'HS256'
   end
 
   def update
@@ -52,9 +56,7 @@ class Api::V1::User::RegistrationsController < ApiController
   end
 private
   def user_params
-    params.permit(
-      :email, :password, :phone_number, :emergency_number,
-     :full_name, :latitude, :longitude, :social_media, :social_id,:fcm_token
-     )
+    params.permit(:email, :password, :phone_number, :emergency_number,
+     :full_name, :latitude, :longitude, :social_media, :social_id, :fcm_token)
   end
 end

@@ -37,7 +37,7 @@ class Api::V1::VehiclesController < ApiController
         render json: { status: true, vehicle: @vehicle }
       end
     rescue => error
-      render json: { status: false, message: error}
+      render json: { status: false, message: error }
     end
   end
 
@@ -49,13 +49,15 @@ class Api::V1::VehiclesController < ApiController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_vehicle
-      @vehicle = Vehicle.find(params[:id])
-    end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def vehicle_params
-      params.permit(:model_no, :registration_no, :vehicle_type, :vehicle_number, :name)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_vehicle
+    @vehicle = Vehicle.find(params[:id])
+  end
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def vehicle_params
+    params.permit(:model_no, :registration_no, :vehicle_type, :vehicle_number,
+     :name)
+  end
 end
