@@ -2,8 +2,8 @@ class Vehicle < ApplicationRecord
 	before_create :assign_unique_vehicle_number
 
 
-	has_many :vehilce_drivers
-	has_many :drivers, through: :vehilce_drivers
+	has_many :vehicle_drivers
+	has_many :drivers, through: :vehicle_drivers
 
 	enum vehicle_type: %i(fourwheeler_local fourwheeler_outstation sevenwheeler_local sevenwheeler_outstations traveller bus)
 	validates :vehicle_type, :registration_no, :vehicle_number, presence: true
