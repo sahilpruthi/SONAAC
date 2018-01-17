@@ -17,8 +17,9 @@ class Driver < ApplicationRecord
   has_many :users, through: :driver_user_fairs
   has_many :vehicle_drivers
   has_many :vehicles, through: :vehicle_drivers
-  
+
 private
+
 	CASE_NUMBER_RANGE = (0000..9999)
 
 	def assign_unique_driver_number
