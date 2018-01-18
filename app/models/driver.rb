@@ -20,7 +20,7 @@ class Driver < ApplicationRecord
 
 private
 
-	CASE_NUMBER_RANGE = (0000..9999)
+	CASE_NUMBER_RANGE = (0001..9999)
 
 	def assign_unique_driver_number
 	  	self.driver_unique_number = loop do
