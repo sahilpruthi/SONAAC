@@ -1,7 +1,9 @@
 class Api::V1::CommonsController < ApiController
 
-	 before_action :authenticate_user, only: %i(get_nearest_drivers notify_cutomer_for_price get_drivers_offer)
-   before_action :authenticate_driver,  only: %i(notify_cutomer_for_price get_driver)
+	 before_action :authenticate_user, only: %i(get_nearest_drivers notify_cutomer_for_price
+    get_drivers_offer forgot_password)
+   before_action :authenticate_driver,  only: %i(notify_cutomer_for_price get_driver
+    driver_forgot_password)
 
 	def get_nearest_drivers
     if @user.present?
@@ -36,6 +38,17 @@ class Api::V1::CommonsController < ApiController
 
   def get_driver
     render json: { status: true, driver: @driver }
+  end
+
+
+  def forgot_password
+    UserMailer.forgot_password(@user).deliver_now
+    render json: {status: true, message: 'mail send successfully'}
+  end
+
+  def driver_forgot_password
+    UserMailer.driver_forgot_password(@driver).deliver_now
+    render json: {status: true, message: 'mail send successfully'}
   end
 
   def notify_cutomer_for_price

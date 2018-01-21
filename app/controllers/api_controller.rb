@@ -10,10 +10,6 @@ class ApiController < ApplicationController
     end
   end
 
-  def current_user
-    @user
-  end
-
   def authenticate_driver
     if params[:driver_id].present?
       @driver = Driver.find(params[:driver_id])

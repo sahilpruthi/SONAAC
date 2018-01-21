@@ -17,6 +17,8 @@ Rails.application.routes.draw do
       post '/offer_trip', to: 'commons#notify_cutomer_for_price'
       get '/get_drivers_offer/:user_id', to: 'commons#get_drivers_offer'
       get 'get_driver/:driver_id', to: 'commons#get_driver'
+      get 'user_forgot_password/:user_id', to: 'commons#forgot_password'
+      get 'driver_forgot_password/:driver_id', to: 'commons#driver_forgot_password'
       
     end
   end
