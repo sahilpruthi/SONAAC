@@ -9,7 +9,7 @@ class Vehicle < ApplicationRecord
   validates :vehicle_type, :registration_no, :vehicle_number, presence: true
 	validates :registration_no, :vehicle_number, uniqueness: true
 
-  CASE_NUMBER_RANGE = (0001..9999)
+  CASE_NUMBER_RANGE = (1000..9999)
   def assign_unique_vehicle_number
   	self.vehicle_unique_number = loop do
     	number = rand(CASE_NUMBER_RANGE)
