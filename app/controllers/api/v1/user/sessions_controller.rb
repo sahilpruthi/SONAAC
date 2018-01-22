@@ -9,14 +9,14 @@ class Api::V1::User::SessionsController < ApiController
       # TRACKER.people.increment(user.id, {no_of_logins: 1})
       user.update_attributes(fcm_token: params[:fcm_token]) if params[
         :fcm_token].present?
-      render json: { status: true, data: { user: user } }
+      render json: { status: true, user: user }
     else
       return unauthorize
     end
   end
 
   private
-  
+
   def auth_user_by_email
     user = User.find_by_email(user_params[:email])
     if user && user.social_media.present?
