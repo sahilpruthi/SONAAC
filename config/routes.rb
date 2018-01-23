@@ -19,6 +19,9 @@ Rails.application.routes.draw do
       get 'get_driver/:driver_id', to: 'commons#get_driver'
       get 'user_forgot_password/:user_id', to: 'commons#forgot_password'
       get 'driver_forgot_password/:driver_id', to: 'commons#driver_forgot_password'
+
+      get '/get_state', to: 'state_city#get_state'
+      get '/get_cities/:state', to: 'state_city#get_cities'
       
     end
   end
