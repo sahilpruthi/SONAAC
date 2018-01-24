@@ -30,6 +30,6 @@ private
 	end
 
   def self.send_notification(device_keys, user, slat, slong, dlat, dlong)
-    PushNotification.send_notidication(device_keys, user, slat, slong, dlat, dlong)
+    PushNotification.send_notification(device_keys, user, slat, slong, dlat, dlong)
   end
 end
