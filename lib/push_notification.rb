@@ -25,7 +25,6 @@ module PushNotification
 
   def self.send_user_notidication(device_key, driver)
     fcm = FCM.new(ENV['fcm_key'])
-    vehicle = driver.vehicle_drivers.last.vehicle
     registration_ids = [device_key] 
     options = {
       priority: 'high',
@@ -33,8 +32,6 @@ module PushNotification
       data: {
         title: 'SONAAC',
         driver_id: driver.id,
-        vehicle_number: vehicle.vehicle_number,
-        vehicle_name: 'Maruti Suzuki Swift',
         message: "#{driver.name}, offer's lift"
       },
       notification: {
