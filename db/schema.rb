@@ -91,7 +91,7 @@ ActiveRecord::Schema.define(version: 20180115172803) do
   end
 
   create_table "vehicles", force: :cascade do |t|
-    t.string   "model_no",              null: false
+    t.string   "model_no"
     t.string   "registration_no",       null: false
     t.integer  "vehicle_type",          null: false
     t.string   "vehicle_number",        null: false

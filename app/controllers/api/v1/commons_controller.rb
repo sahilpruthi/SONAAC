@@ -10,7 +10,8 @@ class Api::V1::CommonsController < ApiController
       driver_ids = []
       vehicles = Vehicle.where(vehicle_type: params[:vehicle_type])
       vehicles.each do |vehicle|
-        driver_ids << vehicle.drivers.last.id
+        vehicle_driver = vehicle.drivers
+        driver_ids << vehicle_driver.last.id if vehicle_driver.present?
       end
       drivers = Driver.where(id: driver_ids).near(
         [params[:latitude], params[:longitude]], 2, :units => :km)
