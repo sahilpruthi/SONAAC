@@ -7,7 +7,14 @@ class Api::V1::CommonsController < ApiController
 
 	def get_nearest_drivers
     if @user.present?
-  		drivers = Driver.near([params[:latitude], params[:longitude]], 2, :units => :km)
+      driver_ids = []
+      vehicles = Vehicle.where(vehicle_type: params[:vehicle_type])
+      vehicles.each do |vehicle|
+        vehicle_driver = vehicle.drivers
+        driver_ids << vehicle_driver.last.id if vehicle_driver.present?
+      end
+      drivers = Driver.where(id: driver_ids).near(
+        [params[:latitude], params[:longitude]], 2, :units => :km)
       if drivers.present?
   		  Driver.send_notification(drivers.pluck(:fcm_token).compact, @user,
           params[:source_latitude], params[:source_longitude], params[:destination_latitude],
