@@ -1,9 +1,9 @@
 class Api::V1::CommonsController < ApiController
 
 	 before_action :authenticate_user, only: %i(get_nearest_drivers notify_cutomer_for_price
-    get_drivers_offer forgot_password)
+    get_drivers_offer forgot_password start_trip)
    before_action :authenticate_driver,  only: %i(notify_cutomer_for_price get_driver
-    driver_forgot_password)
+    driver_forgot_password start_trip)
 
 	def get_nearest_drivers
     if @user.present?
@@ -49,6 +49,21 @@ class Api::V1::CommonsController < ApiController
   def driver_forgot_password
     UserMailer.driver_forgot_password(@driver).deliver_now
     render json: {status: true, message: 'mail send successfully'}
+  end
+
+  def start_trip
+    if @driver.present? && @user.present?
+      fair = @driver.driver_user_fairs.where(user_id: @user.id, fair_status: 'offered')
+      if fair.present?
+        fair.first.update_attribute(:fair_status, 'started')
+        driver_fairs = @user.driver_user_fairs.where(fair_status: 'offered').destroy_all
+        render json: { status: true, message: 'Trip Started' }
+      else
+        render json: { status: true, message: "Driver hav't offered you any trip" }
+      end
+    else
+      render json: { status: false, message: 'Something went wrong' }
+    end
   end
 
   def notify_cutomer_for_price

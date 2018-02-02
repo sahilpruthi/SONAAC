@@ -9,5 +9,6 @@ class AddColumnForUser < ActiveRecord::Migration[5.0]
     add_column :users, :social_media, :string
     add_column :users, :social_id, :string
     add_column :users, :fcm_token, :string
+    add_column :users,  :type, :string
   end
 end

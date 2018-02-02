@@ -77,6 +77,7 @@ ActiveRecord::Schema.define(version: 20180115172803) do
     t.string   "social_media"
     t.string   "social_id"
     t.string   "fcm_token"
+    t.string   "type"
     t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   end
@@ -91,7 +92,7 @@ ActiveRecord::Schema.define(version: 20180115172803) do
   end
 
   create_table "vehicles", force: :cascade do |t|
-    t.string   "model_no",              null: false
+    t.string   "model_no"
     t.string   "registration_no",       null: false
     t.integer  "vehicle_type",          null: false
     t.string   "vehicle_number",        null: false

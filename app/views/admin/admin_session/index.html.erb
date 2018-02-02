@@ -1,0 +1,27 @@
+<div class="container">
+  <% flash.each do |key, value| %>
+    <div class="alert alert-<%= key %>"><%= value %></div>
+  <% end %>
+</div>
+
+<h1>Log in</h1>
+
+<%= form_for :admin, url: admin_login_path do |f|%>
+  <div class="imgcontainer">
+    <!-- <img src="img_avatar2.png" alt="Avatar" class="avatar"> -->
+  </div>
+
+  <div class="container">
+    <label class = "margin-10"><b>Username</b></label>
+    <%= f.email_field :email, class: 'form-control margin-10', placeholder: 'Enter Username' %>
+
+    <label class = "margin-10"><b>Password</b></label>
+    <%= f.password_field :password, class: 'form-control margin-10', placeholder: 'Enter Password'%>
+
+    <%= f.submit "Log in", class: " form-control btn btn-primary margin-10" %>
+  </div>
+
+  <div class="container  margin-10" style="background-color:#f1f1f1">
+    <span class="psw" >Forgot <a href="#">password?</a></span>
+  </div>
+<%end%>
