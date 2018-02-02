@@ -33,7 +33,6 @@ gem 'jbuilder', '~> 2.5'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 gem 'rubocop', require: false
-gem 'bootstrap-sass', '~> 3.3.7'
 # gem authenticity token
 gem 'jwt'
 gem 'carrierwave', '~> 1.0'
