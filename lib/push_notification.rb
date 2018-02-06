@@ -10,6 +10,7 @@ module PushNotification
       data: {
         message: "#{user.full_name} , need a lift",
         user_id: user.id,
+        type: 'need_lift_notification',
         source_lat: slat,
         source_long: slong,
         destination_lat: dlat,
@@ -32,6 +33,7 @@ module PushNotification
       data: {
         title: 'SONAAC',
         driver_id: driver.id,
+        type: 'offer_lift_notification',
         message: "#{driver.name}, offer's lift"
       },
       notification: {
@@ -50,7 +52,8 @@ module PushNotification
       collapse_key: 'updated_score',
       data: {
         title: 'SONAAC',
-        driver_id: user.id,
+        user_id: user.id,
+        type: 'cancel_notification',
         message: "#{user.full_name}, cancel his lift"
       },
       notification: {
@@ -70,6 +73,7 @@ module PushNotification
       data: {
         title: 'SONAAC',
         driver_id: driver.id,
+        type: 'stop_notification',
         message: "Trip Cancelled"
       },
       notification: {

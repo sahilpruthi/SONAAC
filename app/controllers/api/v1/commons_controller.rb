@@ -80,7 +80,6 @@ class Api::V1::CommonsController < ApiController
   end
 
    def stop_trip
-    binding.pry
     fair = DriverUserFair.find(params[:trip_id])
     Driver.cancel_notification(@driver.fcm_token, @user)
     fair.fair_status = 'completed'    
