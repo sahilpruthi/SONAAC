@@ -22,6 +22,8 @@ root to: 'admin/admin_session#index'
       post '/start_trip', to: 'commons#start_trip'
       get 'user_forgot_password/:user_id', to: 'commons#forgot_password'
       get 'driver_forgot_password/:driver_id', to: 'commons#driver_forgot_password'
+      post 'cancel_trip', to: 'commons#cancel_trip'
+      post 'stop_trip', to: 'commons#stop_trip'
       get '/get_state', to: 'state_city#get_state'
       get '/get_cities/:state', to: 'state_city#get_cities'
 

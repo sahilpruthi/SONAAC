@@ -1,9 +1,9 @@
 class Api::V1::CommonsController < ApiController
 
 	 before_action :authenticate_user, only: %i(get_nearest_drivers notify_cutomer_for_price
-    get_drivers_offer forgot_password start_trip)
+    get_drivers_offer forgot_password start_trip stop_trip cancel_trip)
    before_action :authenticate_driver,  only: %i(notify_cutomer_for_price get_driver
-    driver_forgot_password start_trip)
+    driver_forgot_password start_trip stop_trip cancel_trip)
 
 	def get_nearest_drivers
     if @user.present?
@@ -64,13 +64,27 @@ class Api::V1::CommonsController < ApiController
       if fair.present?
         fair.first.update_attribute(:fair_status, 'started')
         driver_fairs = @user.driver_user_fairs.where(fair_status: 'offered').destroy_all
-        render json: { status: true, message: 'Trip Started' }
+        render json: { status: true, message: 'Trip Started', trip_id: fair.id}
       else
         render json: { status: true, message: "Driver hav't offered you any trip" }
       end
     else
       render json: { status: false, message: 'Something went wrong' }
     end
+  end
+
+  def cancel_trip
+    fair = DriverUserFair.find(params[:trip_id])
+    Driver.cancel_notification(@driver.fcm_token, @user)
+    render json: {status: true, message: 'Notified to driver for cancellation'}
+  end
+
+   def stop_trip
+    binding.pry
+    fair = DriverUserFair.find(params[:trip_id])
+    Driver.cancel_notification(@driver.fcm_token, @user)
+    fair.fair_status = 'completed'    
+    render json: {status: true, message: 'Trip Cancelled'}
   end
 
   def notify_cutomer_for_price
