@@ -60,9 +60,9 @@ class Api::V1::CommonsController < ApiController
 
   def start_trip
     if @driver.present? && @user.present?
-      fair = @driver.driver_user_fairs.where(user_id: @user.id, fair_status: 'offered')
+      fair = @driver.driver_user_fairs.where(user_id: @user.id, fair_status: 'offered').first
       if fair.present?
-        fair.first.update_attribute(:fair_status, 'started')
+        fair.update_attribute(:fair_status, 'started')
         driver_fairs = @user.driver_user_fairs.where(fair_status: 'offered').destroy_all
         render json: { status: true, message: 'Trip Started', trip_id: fair.id}
       else
