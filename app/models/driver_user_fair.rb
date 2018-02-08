@@ -11,7 +11,9 @@ class DriverUserFair < ApplicationRecord
 					name: driver.name,
 					email: driver.email,
 					phone_number: driver.phone_number,
+					vehicle_unique_number: vehicle.vehicle_unique_number,
 					vehicle_number: vehicle.vehicle_number,
+					driver_unique_number: driver.driver_unique_number,
 					vehicle_name: 'Maruti Suzuki Swift'
 				})
 	end
