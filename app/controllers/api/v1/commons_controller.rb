@@ -75,7 +75,7 @@ class Api::V1::CommonsController < ApiController
 
   def cancel_trip
     fair = DriverUserFair.find(params[:trip_id])
-    Driver.cancel_notification(@driver.fcm_token, @user)
+    Driver.cancel_notification(@driver.fcm_token, @user, fair)
     render json: {status: true, message: 'Notified to driver for cancellation'}
   end
 

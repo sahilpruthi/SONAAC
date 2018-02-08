@@ -33,6 +33,8 @@ module PushNotification
       data: {
         title: 'SONAAC',
         driver_id: driver.id,
+        driver_unique_id: driver.driver_unique_number,
+        vehicle_unique_id:  @driver.vehicles.last.vehicle_unique_number,
         type: 'offer_lift_notification',
         message: "#{driver.name}, offer's lift"
       },
@@ -44,7 +46,7 @@ module PushNotification
     fcm.send(registration_ids, options)
   end
 
-  def self.cancel_notification(device_key, user)
+  def self.cancel_notification(device_key, user, fair)
     fcm = FCM.new(ENV['fcm_key'])
     registration_ids = [device_key] 
     options = {
@@ -53,6 +55,7 @@ module PushNotification
       data: {
         title: 'SONAAC',
         user_id: user.id,
+        fair_id: fair.id,
         type: 'cancel_notification',
         message: "#{user.full_name}, cancel his lift"
       },
