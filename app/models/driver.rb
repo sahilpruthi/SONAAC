@@ -33,7 +33,7 @@ private
     PushNotification.send_notification(device_keys, user, slat, slong, dlat, dlong)
   end
 
-  def self.cancel_notification(device_key, user, fair)
-    PushNotification.cancel_notification(device_key, user)
+  def self.cancel_trip_notification(device_key, user, fair)
+    PushNotification.cancel_notification(device_key, user, fair)
   end
 end

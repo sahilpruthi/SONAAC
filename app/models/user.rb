@@ -9,4 +9,12 @@ class User < ApplicationRecord
   def self.send_notification(device_key, driver)
     PushNotification.send_user_notidication(device_key, driver)
   end
+
+  def self.stop_trip_notification(device_key)
+    PushNotification.stop_notification(device_key)
+  end
+
+  def self.resume_trip_notification(device_key)
+    PushNotification.resume_notification(device_key)
+  end
 end

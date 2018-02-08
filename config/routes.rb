@@ -24,6 +24,7 @@ root to: 'admin/admin_session#index'
       get 'driver_forgot_password/:driver_id', to: 'commons#driver_forgot_password'
       post 'cancel_trip', to: 'commons#cancel_trip'
       post 'stop_trip', to: 'commons#stop_trip'
+      post 'resume_trip', to: 'commons#resume_trip'
       get '/get_state', to: 'state_city#get_state'
       get '/get_cities/:state', to: 'state_city#get_cities'
 

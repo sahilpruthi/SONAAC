@@ -34,7 +34,7 @@ module PushNotification
         title: 'SONAAC',
         driver_id: driver.id,
         driver_unique_id: driver.driver_unique_number,
-        vehicle_unique_id:  @driver.vehicles.last.vehicle_unique_number,
+        vehicle_unique_id:  driver.vehicles.last.vehicle_unique_number,
         type: 'offer_lift_notification',
         message: "#{driver.name}, offer's lift"
       },
@@ -67,7 +67,7 @@ module PushNotification
     fcm.send(registration_ids, options)
   end
 
-  def self.stop_notification(device_key, driver)
+  def self.stop_notification(device_key)
     fcm = FCM.new(ENV['fcm_key'])
     registration_ids = [device_key] 
     options = {
@@ -75,9 +75,8 @@ module PushNotification
       collapse_key: 'updated_score',
       data: {
         title: 'SONAAC',
-        driver_id: driver.id,
         type: 'stop_notification',
-        message: "Trip Cancelled"
+        message: "Trip Cancelled Successfully"
       },
       notification: {
         title: 'SONAAC',
@@ -86,4 +85,25 @@ module PushNotification
     }
     fcm.send(registration_ids, options)
   end
+
+   def self.resume_notification(device_key)
+    fcm = FCM.new(ENV['fcm_key'])
+    registration_ids = [device_key] 
+    options = {
+      priority: 'high',
+      collapse_key: 'updated_score',
+      data: {
+        title: 'SONAAC',
+        type: 'resume_notification',
+        message: "Trip Cancellation Declined"
+      },
+      notification: {
+        title: 'SONAAC',
+        body: "Trip Cancellation Declined"
+      }
+    }
+    binding.pry
+    fcm.send(registration_ids, options)
+  end
+
 end
