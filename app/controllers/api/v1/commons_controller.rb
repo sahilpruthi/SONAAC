@@ -3,7 +3,7 @@ class Api::V1::CommonsController < ApiController
 	 before_action :authenticate_user, only: %i(get_nearest_drivers notify_cutomer_for_price
     get_drivers_offer forgot_password start_trip stop_trip cancel_trip resume_trip get_nearest_user_driver)
    before_action :authenticate_driver,  only: %i(notify_cutomer_for_price get_driver
-    driver_forgot_password start_trip stop_trip cancel_trip resume_trip get_nearest_user_driver)
+    driver_forgot_password start_trip stop_trip cancel_trip resume_trip )
 
 	def get_nearest_drivers
     if @user.present?
@@ -52,7 +52,7 @@ class Api::V1::CommonsController < ApiController
       users = User.near([@user.latitude, @user.longitude], 1, :units => :km)
       render json: { status: true, user: users }
     else
-      drivers = Driver.near([@driver.latitude, @driver.longitude], 1, :units => :km)      
+      drivers = Driver.near([@user.latitude, @user.longitude], 1, :units => :km)      
       render json: { status: true, driver: drivers }
     end
   end
