@@ -16,7 +16,7 @@ class User < ApplicationRecord
     PushNotification.stop_notification(device_key)
   end
 
-  def self.resume_trip_notification(device_key, fair, driver)
-    PushNotification.resume_notification(device_key, fair, driver)
+  def self.resume_trip_notification(device_key)
+    PushNotification.resume_notification(device_key)
   end
 end

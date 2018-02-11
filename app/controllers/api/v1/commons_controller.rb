@@ -105,7 +105,8 @@ class Api::V1::CommonsController < ApiController
   def resume_trip
     fair = DriverUserFair.find(params[:trip_id])
     if fair.present? && @driver.present? && @user.present?
-      User.resume_trip_notification(@user.fcm_token, fair, @driver)
+      # User.resume_trip_notification(@user.fcm_token, fair, @driver)
+       User.resume_trip_notification(@user.fcm_token)
       render json: { status: true, message: 'Your cancellation is declied by the driver' }
     else
       render json: { tatus: false, message: 'No ride available for the user with the driver' }
