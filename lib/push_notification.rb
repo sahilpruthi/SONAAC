@@ -86,7 +86,7 @@ module PushNotification
     fcm.send(registration_ids, options)
   end
 
-   def self.resume_notification(device_key)
+   def self.resume_notification(device_key, fair, driver)
     fcm = FCM.new(ENV['fcm_key'])
     registration_ids = [device_key] 
     options = {
@@ -95,6 +95,8 @@ module PushNotification
       data: {
         title: 'SONAAC',
         type: 'resume_notification',
+        driver_id: driver.id,
+        trip_id: fair.id,
         message: "Trip Cancellation Declined"
       },
       notification: {

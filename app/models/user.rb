@@ -6,6 +6,8 @@ class User < ApplicationRecord
   has_many :driver_user_fairs
   has_many :drivers, through: :driver_user_fairs
 
+  reverse_geocoded_by :latitude, :longitude
+  
   def self.send_notification(device_key, driver)
     PushNotification.send_user_notidication(device_key, driver)
   end
@@ -14,7 +16,7 @@ class User < ApplicationRecord
     PushNotification.stop_notification(device_key)
   end
 
-  def self.resume_trip_notification(device_key)
-    PushNotification.resume_notification(device_key)
+  def self.resume_trip_notification(device_key, fair, driver)
+    PushNotification.resume_notification(device_key, fair, driver)
   end
 end

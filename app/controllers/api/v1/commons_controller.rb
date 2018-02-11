@@ -1,9 +1,9 @@
 class Api::V1::CommonsController < ApiController
 
 	 before_action :authenticate_user, only: %i(get_nearest_drivers notify_cutomer_for_price
-    get_drivers_offer forgot_password start_trip stop_trip cancel_trip resume_trip)
+    get_drivers_offer forgot_password start_trip stop_trip cancel_trip resume_trip get_nearest_user_driver)
    before_action :authenticate_driver,  only: %i(notify_cutomer_for_price get_driver
-    driver_forgot_password start_trip stop_trip cancel_trip resume_trip)
+    driver_forgot_password start_trip stop_trip cancel_trip resume_trip get_nearest_user_driver)
 
 	def get_nearest_drivers
     if @user.present?
@@ -21,7 +21,7 @@ class Api::V1::CommonsController < ApiController
           params[:destination_longitude])
         render json: { status: true, drivers: drivers }
       else
-        render json: { status: false, available_drivers: 'No Driver Available in your location' }
+        render json: { status: false, available_drivers: 'No Vehicle Available in your location' }
       end
     else
       render json: { status: false, available_drivers: 'No User Available' }
@@ -47,6 +47,15 @@ class Api::V1::CommonsController < ApiController
     render json: { status: true, driver: @driver }
   end
 
+  def get_nearest_user_driver
+    if params[:user].present?
+      users = User.near([@user.latitude, @user.longitude], 1, :units => :km)
+      render json: { status: true, user: users }
+    else
+      drivers = Driver.near([@driver.latitude, @driver.longitude], 1, :units => :km)      
+      render json: { status: true, driver: drivers }
+    end
+  end
 
   def forgot_password
     UserMailer.forgot_password(@user).deliver_now
@@ -87,7 +96,7 @@ class Api::V1::CommonsController < ApiController
     fair = DriverUserFair.find(params[:trip_id])
     if fair.present? && @driver.present? && @user.present?
       fair.update_attribute(:fair_status, 'completed')
-      User.stop_trip_notification(@user.fcm_token)
+      # User.stop_trip_notification(@user.fcm_token)
       render json: { status: true, message: 'Trip Cancelled' }
     else
      end
@@ -96,7 +105,7 @@ class Api::V1::CommonsController < ApiController
   def resume_trip
     fair = DriverUserFair.find(params[:trip_id])
     if fair.present? && @driver.present? && @user.present?
-      User.resume_trip_notification(@user.fcm_token)
+      User.resume_trip_notification(@user.fcm_token, fair, @driver)
       render json: { status: true, message: 'Your cancellation is declied by the driver' }
     else
       render json: { tatus: false, message: 'No ride available for the user with the driver' }
