@@ -8,7 +8,7 @@ class Api::V1::User::SessionsController < ApiController
     if user
       user.update_attributes(fcm_token: params[:fcm_token]) if params[
         :fcm_token].present?
-      session[:user] = user
+      # session[:user] = user
       render json: { status: true, user: user }
     else
       return unauthorize
@@ -19,7 +19,7 @@ class Api::V1::User::SessionsController < ApiController
   def destroy
     if @user.present?
       @user.update_attribute(:fcm_token, '')
-      session[:user].clear
+      # session[:user].clear
       render json: { status: true, message: 'logout successfully' }
     end
   end
