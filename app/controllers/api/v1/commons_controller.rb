@@ -1,9 +1,9 @@
 class Api::V1::CommonsController < ApiController
 
 	 before_action :authenticate_user, only: %i(get_nearest_drivers notify_cutomer_for_price
-    get_drivers_offer forgot_password start_trip stop_trip cancel_trip resume_trip get_nearest_user_driver)
+    get_drivers_offer forgot_password start_trip stop_trip cancel_trip resume_trip get_nearest_user_driver user_sign_out)
    before_action :authenticate_driver,  only: %i(notify_cutomer_for_price get_driver
-    driver_forgot_password start_trip stop_trip cancel_trip resume_trip )
+    driver_forgot_password start_trip stop_trip cancel_trip resume_trip driver_sign_out)
 
 	def get_nearest_drivers
     if @user.present?
@@ -52,7 +52,7 @@ class Api::V1::CommonsController < ApiController
       users = User.near([@user.latitude, @user.longitude], 1, :units => :km)
       render json: { status: true, user: users }
     else
-      drivers = Driver.near([@user.latitude, @user.longitude], 1, :units => :km)      
+      drivers = Driver.near([@user.latitude, @user.longitude], 1, :units => :km)
       render json: { status: true, driver: drivers }
     end
   end
@@ -110,6 +110,20 @@ class Api::V1::CommonsController < ApiController
       render json: { status: true, message: 'Your cancellation is declied by the driver' }
     else
       render json: { tatus: false, message: 'No ride available for the user with the driver' }
+    end
+  end
+
+  def user_sign_out
+    if @user.present?
+      @user.update_attribute(:fcm_token, '')
+      render json: { status: true, message: 'logout successfully' }
+    end
+  end
+
+  def driver_sign_out
+    if @driver.present?
+      @driver.update_attribute(:fcm_token, '')
+      render json: { status: true, message: 'logout successfully' }
     end
   end
 
