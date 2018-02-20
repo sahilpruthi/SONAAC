@@ -1,0 +1,26 @@
+<div class="container">
+  <h2><%= @vehicle.name %></h2>
+  <%= form_for [:admin, @vehicle] do |f| %>
+    <div class="form-group">
+    	<%= f.label :registration_no %>:
+  		<%= f.text_field :registration_no %><br />
+    </div>
+    <div class="form-group">
+      <%= f.label :model_no %>:
+  		<%= f.text_field :model_no %><br />
+    </div>
+    <div class="form-group">
+      <%= f.label :registration_no %>:
+  		<%= f.text_field :registration_no %><br />
+    </div>
+    <div class="form-group">
+      <%= f.label :vehicle_number %>:
+  		<%= f.text_field :vehicle_number %><br />
+    </div>
+     <div class="form-group">
+      <%= f.label :name %>:
+  		<%= f.text_field :name %><br />
+    </div>
+    <button type="submit" class="btn btn-default">Submit</button>
+  <%end%>
+</div>

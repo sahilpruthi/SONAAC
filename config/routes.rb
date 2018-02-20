@@ -12,7 +12,12 @@ root to: 'admin/admin_session#index'
         sessions: 'api/v1/driver/sessions',
         registrations: 'api/v1/driver/registrations'
          }
-      resources :vehicles
+      resources :vehicles do
+       collection do
+        post :search_vehicle
+        get :get_stations
+       end
+      end
       # resource :common 
       post '/get_drivers_near_to_me', to: 'commons#get_nearest_drivers'
       get '/check_user_existence/:email', to: 'commons#check_user'
@@ -36,9 +41,9 @@ root to: 'admin/admin_session#index'
     post '/login', to: 'admin_session#login'
     get '/home', to: 'admin_session#home'
 
-    resources :drivers, only: %i(edit index update)
-    resources :vehicles, only: %i(edit index update) 
-    resources :users, only: %i(edit index update) 
+    resources :driver, only: %i(edit index update)
+    resources :vehicle, only: %i(edit index update) 
+    resources :user, only: %i(edit index update) 
   end
 
   #

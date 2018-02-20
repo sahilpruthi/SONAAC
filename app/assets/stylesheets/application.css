@@ -17,7 +17,7 @@
   margin-top: 10px;
 }
 
-.footer{
+/*.footer{
   position: fixed;
   left: 0;
   bottom: 0;
@@ -25,4 +25,15 @@
   background-color: darkgreen;
   color: white;
   text-align: center;
-  }
+  }*/
+
+.navbar {
+margin-bottom: 0;
+border-radius: 0;
+}
+
+/* Add a gray background color and some padding to the footer */
+footer {
+background-color: #f2f2f2;
+padding: 25px;
+}

@@ -1,5 +1,23 @@
-<header>
-   <%= link_to 'Vehicle', admin_vehicles_path %>
-   <%= link_to 'Users', admin_users_path%>
-   <%= link_to 'Drivers', admin_drivers_path%>
-</header>
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>                        
+      </button>
+      <a class="navbar-brand" href="#">Portfolio</a>
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav">
+        <li class="active"><a href="#">Home</a></li>
+        <li><%= link_to 'Vehicle', admin_vehicle_index_path %></li>
+        <li><%= link_to 'Users', admin_user_index_path%></li>
+   			<li><%= link_to 'Drivers', admin_driver_index_path%></li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>

@@ -1,9 +1,14 @@
 class Api::V1::CommonsController < ApiController
 
-	 before_action :authenticate_user, only: %i(get_nearest_drivers notify_cutomer_for_price
-    get_drivers_offer forgot_password start_trip stop_trip cancel_trip resume_trip get_nearest_user_driver)
-   before_action :authenticate_driver,  only: %i(notify_cutomer_for_price get_driver
-    driver_forgot_password start_trip stop_trip cancel_trip resume_trip )
+	 # before_action :authenticate_user, only: %i(get_nearest_drivers notify_cutomer_for_price
+    # get_drivers_offer forgot_password start_trip stop_trip cancel_trip resume_trip get_nearest_user_driver)
+   # before_action :authenticate_driver,  only: %i(notify_cutomer_for_price get_driver
+    # driver_forgot_password start_trip stop_trip cancel_trip resume_trip )
+  
+  before_action :authenticate_user, except: %i(get_nearest_drivers check_user get_driver
+   driver_forgot_password)
+  before_action :authenticate_driver, except: %i(get_nearest_drivers check_user get_driver
+   driver_forgot_password)
 
 	def get_nearest_drivers
     if @user.present?

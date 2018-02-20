@@ -102,7 +102,6 @@ module PushNotification
         body: "Trip Cancellation Declined"
       }
     }
-    binding.pry
     fcm.send(registration_ids, options)
   end
 
