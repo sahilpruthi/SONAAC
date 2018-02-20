@@ -18,12 +18,13 @@ root to: 'admin/admin_session#index'
         get :get_stations
        end
       end
-      # resource :common 
       post '/get_drivers_near_to_me', to: 'commons#get_nearest_drivers'
       get '/check_user_existence/:email', to: 'commons#check_user'
       post '/offer_trip', to: 'commons#notify_cutomer_for_price'
       get '/get_drivers_offer/:user_id', to: 'commons#get_drivers_offer'
       get 'get_driver/:driver_id', to: 'commons#get_driver'
+      post 'user_sign_out', to: 'commons#user_sign_out'
+      post 'driver_sign_out', to: 'commons#driver_sign_out'
       post '/start_trip', to: 'commons#start_trip'
       get 'user_forgot_password/:user_id', to: 'commons#forgot_password'
       get 'driver_forgot_password/:driver_id', to: 'commons#driver_forgot_password'

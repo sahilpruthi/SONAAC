@@ -11,7 +11,7 @@ class Api::V1::Driver::SessionsController < ApiController
       driver.update_attributes(fcm_token: params[:fcm_token]) if params[
         :fcm_token].present?
         driver.vehicle_drivers.create(vehicle_id: vehicle.id)
-        session[:driver] = driver
+        # session[:driver] = driver
       render json: { status: true, driver: driver }
     else
       return unauthorize_driver
@@ -22,7 +22,7 @@ class Api::V1::Driver::SessionsController < ApiController
   def destroy
     if @driver.present?
       @driver.update_attribute(:fcm_token, '')
-      session[:driver].clear
+      # session[:driver].clear
       render json: {status: true, message: 'logout successfully'}
     end
   end

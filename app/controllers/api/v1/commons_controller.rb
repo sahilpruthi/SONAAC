@@ -57,7 +57,7 @@ class Api::V1::CommonsController < ApiController
       users = User.near([@user.latitude, @user.longitude], 1, :units => :km)
       render json: { status: true, user: users }
     else
-      drivers = Driver.near([@user.latitude, @user.longitude], 1, :units => :km)      
+      drivers = Driver.near([@user.latitude, @user.longitude], 1, :units => :km)
       render json: { status: true, driver: drivers }
     end
   end
@@ -115,6 +115,20 @@ class Api::V1::CommonsController < ApiController
       render json: { status: true, message: 'Your cancellation is declied by the driver' }
     else
       render json: { tatus: false, message: 'No ride available for the user with the driver' }
+    end
+  end
+
+  def user_sign_out
+    if @user.present?
+      @user.update_attribute(:fcm_token, '')
+      render json: { status: true, message: 'logout successfully' }
+    end
+  end
+
+  def driver_sign_out
+    if @driver.present?
+      @driver.update_attribute(:fcm_token, '')
+      render json: { status: true, message: 'logout successfully' }
     end
   end
 
