@@ -56,7 +56,7 @@ class Api::V1::VehiclesController < ApiController
     destination_vehicles =  Vehicle.includes([:bus_stations, :stations]).where(
       stations: { name: vehicle_params[:destination] }
       )
-    available_vehicle = source_vehicles | destination_vehicles
+    available_vehicle = source_vehicles & destination_vehicles
     available_vehicle = available_vehicle.map{ |vehicle| vehicle.as_json.merge({
           arrival_time: vehicle.bus_stations.find_by(station_id: source_station.id).arrival_time,
           departure_time: vehicle.bus_stations.find_by(station_id: source_station.id).departure_time

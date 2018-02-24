@@ -19,8 +19,8 @@ ActiveRecord::Schema.define(version: 20180215174906) do
     t.boolean  "is_source"
     t.boolean  "is_destination"
     t.integer  "sequence"
-    t.datetime "arrival_time"
-    t.datetime "departure_time"
+    t.string   "arrival_time"
+    t.string   "departure_time"
     t.integer  "vehicle_id"
     t.integer  "station_id"
     t.datetime "created_at",     null: false
