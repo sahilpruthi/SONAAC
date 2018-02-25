@@ -9,7 +9,13 @@ class Api::V1::VehiclesController < ApiController
 
   # GET /vehicles/1
   # GET /vehicles/1.json
-  def show; end
+  def show
+    bus_stations = @vehicle.bus_stations.order(sequence: :asc)
+    stations = bus_stations.map{ |bus_station| bus_station.as_json.merge({
+      name: bus_station.station.name
+    })}
+    render json: {status: true, stations: stations}
+  end
 
   # GET /vehicles/1/edit
   def edit; end
