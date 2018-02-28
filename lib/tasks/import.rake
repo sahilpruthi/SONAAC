@@ -7,16 +7,15 @@ namespace :import do
 	  (2..spreadsheet.last_row).each do |i|
 	    row = Hash[[header, spreadsheet.row(i)].transpose]
 			station = Station.find_or_create_by(name: row.dig('name(station_name)'))
-		if row.dig('arrival_time').class == Fixnum
-  		arrival_time = a = Time.at(row.dig('arrival_time')) - 5.hours
-  		arrival_time = arrival_time - 30.minutes
-  		arrival_time = arrival_time.strftime("%I %M %p")
-		end
-  	if row.dig('departure_time').class == Fixnum
-  		departure_time =  Time.at(row.dig('departure_time')) - 5.hours
-  		departure_time = departure_time - 30.minutes
-  		departure_time = departure_time.strftime("%I %M %p")
-		end	
+			begin
+				arrival_time =  DateTime.strptime(row.dig('arrival_time').to_s,'%s').strftime('%I:%M:%S %p')
+				departure_time =  DateTime.strptime(row.dig('departure_time').to_s,'%s').strftime('%I:%M:%S %p')
+			rescue => error
+				binding.pry
+			end
+			unless arrival_time.present? || departure_time.present?
+				binding.pry
+			end
   		if row.dig('model_no').present?
   			model_no = row.dig('model_no') == 'Not-available' ? row.dig('model_no')+ i.to_s : row.dig('model_no')
   			registration_no = row.dig('registration_no') == 'Not-available' ? row.dig('registration_no') +i.to_s : row.dig('registration_no')
