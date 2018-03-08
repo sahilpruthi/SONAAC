@@ -16,6 +16,7 @@ namespace :import do
       unless arrival_time.present? || departure_time.present?
         binding.pry
       end
+ 
       if row.dig('model_no').present?
         model_no = row.dig('model_no') == 'Not-available' ? row.dig('model_no')+ i.to_s : row.dig('model_no')
         registration_no = row.dig('registration_no') == 'Not-available' ? row.dig('registration_no') +i.to_s : row.dig('registration_no')
@@ -27,12 +28,13 @@ namespace :import do
 	  		bus_station  = vehicle.bus_stations.new(is_source: row.dig('is_source'),
 	  			is_destination: row.dig('is_destination'), arrival_time: arrival_time,
 	  			 departure_time: departure_time, sequence: row.dig('sequence'),
-	  			  station_id: station.id, price: row.dig('Fare').to_s, duration:row.dig('Duration').to_s)
+	  			  station_id: station.id, price: row.dig('Fare'), duration:row.dig('Duration'))
 	  		bus_station.save!
 	  	else
 	  	bus_station  = Vehicle.last.bus_stations.new(is_source: row.dig('is_source'),
 	  			is_destination: row.dig('is_destination'), arrival_time: arrival_time,
-	  			 departure_time: departure_time, sequence: row.dig('sequence'), station_id: station.id )
+	  			 departure_time: departure_time, sequence: row.dig('sequence'), station_id: station.id,
+           price: row.dig('Fare'), duration:row.dig('Duration') )
 	  	bus_station.save
 	  	end
 	  end
