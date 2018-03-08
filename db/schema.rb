@@ -21,6 +21,8 @@ ActiveRecord::Schema.define(version: 20180215174906) do
     t.integer  "sequence"
     t.string   "arrival_time"
     t.string   "departure_time"
+    t.integer  "price"
+    t.datetime "duration"
     t.integer  "vehicle_id"
     t.integer  "station_id"
     t.datetime "created_at",     null: false
@@ -116,6 +118,7 @@ ActiveRecord::Schema.define(version: 20180215174906) do
     t.string   "registration_no",       null: false
     t.integer  "vehicle_type",          null: false
     t.string   "vehicle_number",        null: false
+    t.string   "bus_type"
     t.string   "name"
     t.string   "vehicle_unique_number"
     t.datetime "created_at",            null: false

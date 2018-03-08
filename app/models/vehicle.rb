@@ -5,8 +5,8 @@ class Vehicle < ApplicationRecord
   has_many :drivers, through: :vehicle_drivers
   has_many :bus_stations
   has_many :stations, through: :bus_stations
-  
-	enum vehicle_type: %i(fourwheeler_local fourwheeler_outstation sevenwheeler_local sevenwheeler_outstations traveller bus)
+
+	enum vehicle_type: %i(fourwheeler_local fourwheeler_outstation sevenwheeler_local sevenwheeler_outstations traveller bus_local bus_outstation)
 
   validates :vehicle_type, :registration_no, :vehicle_number, presence: true
 	validates :registration_no, :vehicle_number, uniqueness: true
