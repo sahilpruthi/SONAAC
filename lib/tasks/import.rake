@@ -27,7 +27,7 @@ namespace :import do
 	  		bus_station  = vehicle.bus_stations.new(is_source: row.dig('is_source'),
 	  			is_destination: row.dig('is_destination'), arrival_time: arrival_time,
 	  			 departure_time: departure_time, sequence: row.dig('sequence'),
-	  			  station_id: station.id, price: row.dig('price'), duration:row.dig('duration'))
+	  			  station_id: station.id, price: row.dig('Fare').to_s, duration:row.dig('Duration').to_s)
 	  		bus_station.save!
 	  	else
 	  	bus_station  = Vehicle.last.bus_stations.new(is_source: row.dig('is_source'),

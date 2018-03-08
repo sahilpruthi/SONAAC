@@ -6,8 +6,8 @@ class CreateBusStations < ActiveRecord::Migration[5.0]
   		t.integer :sequence
   		t.string :arrival_time
   		t.string :departure_time
-      t.integer :price
-      t.datetime :duration
+      t.string :price
+      t.string :duration
   		t.belongs_to :vehicle, index: true
   		t.belongs_to :station, index: true
       t.timestamps
