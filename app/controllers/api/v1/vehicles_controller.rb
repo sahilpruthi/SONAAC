@@ -65,7 +65,9 @@ class Api::V1::VehiclesController < ApiController
     available_vehicle = source_vehicles & destination_vehicles
     available_vehicle = available_vehicle.map{ |vehicle| vehicle.as_json.merge({
           arrival_time: vehicle.bus_stations.find_by(station_id: source_station.id).arrival_time,
-          departure_time: vehicle.bus_stations.find_by(station_id: source_station.id).departure_time
+          departure_time: vehicle.bus_stations.find_by(station_id: source_station.id).departure_time,
+          price: vehicle.bus_stations.find_by(station_id: source_station.id).price,
+          duration: vehicle.bus_stations.find_by(station_id: source_station.id).duration
         })}
     render json: { status: true, vehicles: available_vehicle }
    end
