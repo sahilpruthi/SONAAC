@@ -1,5 +1,5 @@
 class Api::V1::VehiclesController < ApiController
-  before_action :set_vehicle, only: %i(show edit update destroy)
+  before_action :set_vehicle, only: %i(show edit update destroy vehicle_details)
 
   # GET /vehicles
   # GET /vehicles.json
@@ -82,6 +82,19 @@ class Api::V1::VehiclesController < ApiController
           destination_duration: vehicle.bus_stations.find_by(station_id: destination_station.id).duration
         })}
     render json: { status: true, vehicles: available_vehicle }
+   end
+
+   def vehicle_details
+    source_station = Station.find_by(name: vehicle_params[:source])
+    destination_station = Station.find_by(name: vehicle_params[:destination])
+    bus_stations = @vehicle.bus_stations.order(sequence: :asc)
+    stations = bus_stations.map{ |bus_station| bus_station.as_json.merge({
+      name: bus_station.station.name,
+      status: bus_station.sequence <=  destination_station.bus_stations.find_by(
+        vehicle_id: @vehicle.id).sequence && bus_station.sequence >=  source_station.
+      bus_stations.find_by(vehicle_id: @vehicle.id).sequence
+    })}
+    render json: {status: true, stations: stations}
    end
 
    def get_stations

@@ -16,6 +16,7 @@ root to: 'admin/admin_session#index'
        collection do
         post :search_vehicle
         get :get_stations
+        post :vehicle_details
        end
       end
       post '/get_drivers_near_to_me', to: 'commons#get_nearest_drivers'
@@ -43,8 +44,8 @@ root to: 'admin/admin_session#index'
     get '/home', to: 'admin_session#home'
 
     resources :driver, only: %i(edit index update)
-    resources :vehicle, only: %i(edit index update) 
-    resources :user, only: %i(edit index update) 
+    resources :vehicle, only: %i(edit index update)
+    resources :user, only: %i(edit index update)
   end
 
   #
