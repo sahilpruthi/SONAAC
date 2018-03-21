@@ -2,7 +2,7 @@ namespace :import do
   desc "Import Csv file for bus data"
   task bus_data: :environment do
   	 # Vehicle.create(model_no: 'sdf', registration_no: 'sadf', vehicle_type: 'bus', vehicle_number: 'not-mentioned', name: 'Bus')
-  	  spreadsheet = Roo::Spreadsheet.open("vendor/sonaac_bus_timing_format_final.xlsx")
+  	  spreadsheet = Roo::Spreadsheet.open("vendor/Sonaac data sharing.xlsx")
 	  header = spreadsheet.row(1)
     (2..spreadsheet.last_row).each do |i|
       row = Hash[[header, spreadsheet.row(i)].transpose]
@@ -16,7 +16,7 @@ namespace :import do
       unless arrival_time.present? || departure_time.present?
         binding.pry
       end
- 
+
       if row.dig('model_no').present?
         model_no = row.dig('model_no') == 'Not-available' ? row.dig('model_no')+ i.to_s : row.dig('model_no')
         registration_no = row.dig('registration_no') == 'Not-available' ? row.dig('registration_no') +i.to_s : row.dig('registration_no')
