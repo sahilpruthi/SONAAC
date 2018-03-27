@@ -121,6 +121,7 @@ ActiveRecord::Schema.define(version: 20180215174906) do
     t.string   "bus_type"
     t.string   "name"
     t.string   "vehicle_unique_number"
+    t.integer  "service_no"
     t.datetime "created_at",            null: false
     t.datetime "updated_at",            null: false
   end

@@ -8,6 +8,7 @@ class CreateVehicles < ActiveRecord::Migration[5.0]
       t.string :bus_type
       t.string :name
       t.string :vehicle_unique_number
+      t.integer :service_no
       t.timestamps
     end
   end

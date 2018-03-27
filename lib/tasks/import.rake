@@ -2,8 +2,8 @@ namespace :import do
   desc "Import Csv file for bus data"
   task bus_data: :environment do
   	 # Vehicle.create(model_no: 'sdf', registration_no: 'sadf', vehicle_type: 'bus', vehicle_number: 'not-mentioned', name: 'Bus')
-  	  spreadsheet = Roo::Spreadsheet.open("vendor/Sonaac data sharing1.xlsx")
-	  header = spreadsheet.sheet('outstation').row(1)
+  	  spreadsheet = Roo::Spreadsheet.open("vendor/Book1.xlsx")
+	  header = spreadsheet.row(1)
     (2..spreadsheet.last_row).each do |i|
       row = Hash[[header, spreadsheet.row(i)].transpose]
       station = Station.find_or_create_by(name: row.dig('name(station_name)'))
@@ -24,7 +24,8 @@ namespace :import do
         vehicle_number = Vehicle.find_by(vehicle_number: vehicle_number).present? ? vehicle_number + '@' + i.to_s : vehicle_number
 	  		vehicle = Vehicle.create(model_no: model_no,
 	  		 registration_no: registration_no, vehicle_type:  row.dig('vehicle_type'),
-	  		 vehicle_number: vehicle_number, name: row.dig('name(vehicle_name)'), bus_type: row.dig('bus_type'))
+	  		 vehicle_number: vehicle_number, name: row.dig('name(vehicle_name)'),
+          bus_type: row.dig('bus_type'), service_no: row.dig('Service No'))
 	  		bus_station  = vehicle.bus_stations.new(is_source: row.dig('is_source'),
 	  			is_destination: row.dig('is_destination'), arrival_time: arrival_time,
 	  			 departure_time: departure_time, sequence: row.dig('sequence'),
