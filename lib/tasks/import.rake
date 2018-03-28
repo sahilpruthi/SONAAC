@@ -2,8 +2,8 @@ namespace :import do
   desc "Import Csv file for bus data"
   task bus_data: :environment do
   	 # Vehicle.create(model_no: 'sdf', registration_no: 'sadf', vehicle_type: 'bus', vehicle_number: 'not-mentioned', name: 'Bus')
-  	  spreadsheet = Roo::Spreadsheet.open("vendor/final data.xlsx")
-	  header = spreadsheet.sheet('Sheet2').row(1)
+  	  spreadsheet = Roo::Spreadsheet.open("vendor/new-sheet.ods")
+	  header = spreadsheet.sheet('Sheet1').row(1)
     # (2..spreadsheet.last_row).each do |i|
     (2..82).each do |i|
       row = Hash[[header, spreadsheet.row(i)].transpose]
