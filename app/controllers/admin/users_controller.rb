@@ -1,4 +1,4 @@
-class Admin::UserController < ApplicationController
+class Admin::UsersController < ApplicationController
 
 	before_action :set_vehicle, except: %i(index)
 

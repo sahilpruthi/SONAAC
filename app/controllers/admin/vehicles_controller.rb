@@ -1,6 +1,6 @@
-class Admin::VehicleController < ApplicationController
+class Admin::VehiclesController < ApplicationController
 
-	before_action :set_vehicle, except: %i(index)
+	before_action :set_vehicle, except: %i(index vehicle_sheet)
 
 	def index
 		@vehicles = Vehicle.all
@@ -14,6 +14,14 @@ class Admin::VehicleController < ApplicationController
 		if @vehicle.update(vehicles_params)
 			redirect_to admin_vehicle_index_path
 		end
+	end
+
+	def vehicle_sheet
+		binding.pry
+	  Vehicle.destroy_all
+	  Vehicle.import(params[:file])
+  	redirect_to root_url, notice: "Products imported."
+
 	end
 
 	private

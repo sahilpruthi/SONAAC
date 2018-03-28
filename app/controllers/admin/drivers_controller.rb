@@ -1,4 +1,4 @@
-class Admin::DriverController < ApplicationController
+class Admin::DriversController < ApplicationController
 
 	before_action :set_vehicle, except: %i(index)
 

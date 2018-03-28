@@ -43,9 +43,14 @@ root to: 'admin/admin_session#index'
     post '/login', to: 'admin_session#login'
     get '/home', to: 'admin_session#home'
 
-    resources :driver, only: %i(edit index update)
-    resources :vehicle, only: %i(edit index update)
-    resources :user, only: %i(edit index update)
+    resources :drivers, only: %i(edit index update)
+    resources :vehicles, only: %i(edit index update) do
+      collection do
+        post :vehicle_sheet
+      end
+    end
+    resources :users, only: %i(edit index update) 
+
   end
 
   #
