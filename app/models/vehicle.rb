@@ -21,14 +21,16 @@ class Vehicle < ApplicationRecord
 
 def self.import(file)
   spreadsheet = Roo::Spreadsheet.open(file.path)
-  header = spreadsheet.sheet('Sheet2').row(1)
+  header = spreadsheet.sheet('Sheet1').row(1)
   (2..spreadsheet.last_row).each do |i|
     row = Hash[[header, spreadsheet.row(i)].transpose]
     if row.dig('name(station_name)') != nil
       station = Station.find_or_create_by(name: row.dig('name(station_name)'))
       begin
-        arrival_time =  DateTime.strptime(row.dig('arrival_time').to_s,'%s').strftime('%I:%M:%S %p')
-        departure_time =  DateTime.strptime(row.dig('departure_time').to_s,'%s').strftime('%I:%M:%S %p')
+        arrival_time = row.dig('arrival_time') == nil ?  row.dig('departure_time') : row.dig('arrival_time')
+        departure_time = row.dig('departure_time') == nil ?  row.dig('arrival_time') : row.dig('departure_time')
+        arrival_time =  DateTime.strptime(arrival_time.to_s,'%s').strftime('%I:%M:%S %p')
+        departure_time =  DateTime.strptime(departure_time.to_s,'%s').strftime('%I:%M:%S %p')
       rescue => error
         puts i
         puts "invalid"
