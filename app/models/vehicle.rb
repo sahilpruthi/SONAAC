@@ -31,6 +31,9 @@ def self.import(file)
         departure_time = row.dig('departure_time') == nil ?  row.dig('arrival_time') : row.dig('departure_time')
         arrival_time =  DateTime.strptime(arrival_time.to_s,'%s').strftime('%I:%M:%S %p')
         departure_time =  DateTime.strptime(departure_time.to_s,'%s').strftime('%I:%M:%S %p')
+
+        puts arrival_time
+        puts departure_time
       rescue => error
         puts i
         puts "invalid"
