@@ -26,15 +26,15 @@ def self.import(file)
     row = Hash[[header, spreadsheet.row(i)].transpose]
     if row.dig('name(station_name)') != nil
       station = Station.find_or_create_by(name: row.dig('name(station_name)'))
-      #begin
+      begin
         arrival_time = row.dig('arrival_time') == nil ?  row.dig('departure_time') : row.dig('arrival_time')
         departure_time = row.dig('departure_time') == nil ?  row.dig('arrival_time') : row.dig('departure_time')
-        #arrival_time =  DateTime.strptime(arrival_time.to_s,'%s').strftime('%I:%M:%S %p')
-        #departure_time =  DateTime.strptime(departure_time.to_s,'%s').strftime('%I:%M:%S %p')
-      #rescue => error
+        arrival_time =  DateTime.strptime(arrival_time.to_s,'%s').strftime('%I:%M:%S %p')
+        departure_time =  DateTime.strptime(departure_time.to_s,'%s').strftime('%I:%M:%S %p')
+      rescue => error
         puts i
         puts "invalid"
-      #end
+      end
       unless arrival_time.present? || departure_time.present?
         puts i 
         puts "invalid"
