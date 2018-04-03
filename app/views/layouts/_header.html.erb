@@ -10,7 +10,7 @@
     </div>
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav">
-        <li class="active"><a href="#">Home</a></li>
+        <li><%= link_to 'Home', root_path, class: "active" %></li>
         <li><%= link_to 'Vehicle', admin_vehicles_path %></li>
         <li><%= link_to 'Users', admin_users_path%></li>
    			<li><%= link_to 'Drivers', admin_drivers_path%></li>

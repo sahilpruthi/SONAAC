@@ -10,6 +10,8 @@ class Admin::VehiclesController < ApplicationController
 		@vehicle
 	end
 
+	def show;end
+
 	def update
 		if @vehicle.update(vehicles_params)
 			redirect_to admin_vehicle_index_path
