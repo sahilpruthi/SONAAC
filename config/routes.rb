@@ -42,6 +42,7 @@ root to: 'admin/admin_session#index'
     get '/', to: 'admin_session#index'
     post '/login', to: 'admin_session#login'
     get '/home', to: 'admin_session#home'
+    delete '/session_destory', to: 'admin_session#destroy'
 
     resources :drivers, only: %i(edit index update)
     resources :vehicles do
@@ -49,7 +50,7 @@ root to: 'admin/admin_session#index'
         post :vehicle_sheet
       end
     end
-    resources :users, only: %i(edit index update) 
+    resources :users, only: %i(edit index update destroy) 
 
   end
 

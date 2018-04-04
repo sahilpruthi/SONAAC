@@ -10,13 +10,15 @@
     </div>
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav">
-        <li><%= link_to 'Home', root_path, class: "active" %></li>
+        <li><%=  link_to 'Home', admin_home_path, class: "active"  if current_api_v1_user.present? %></li>
+        <li><%=  link_to 'Home', root_path, class: "active"  unless current_api_v1_user.present? %></li>
         <li><%= link_to 'Vehicle', admin_vehicles_path %></li>
         <li><%= link_to 'Users', admin_users_path%></li>
    			<li><%= link_to 'Drivers', admin_drivers_path%></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+        <li><%= link_to "Logout", admin_session_destory_path, :method => "DELETE" if current_api_v1_user.present?%></li>
+        <li><%= link_to 'Login', root_path  unless current_api_v1_user.present? %> </li>
       </ul>
     </div>
   </div>

@@ -2,12 +2,12 @@
   <thead>
     <tr>
       <th>#</th>
-      <th>Vehicle Number</th>
-      <th>Registration Number</th>
-      <th>Model Number</th>
+      <th>Email</th>
+      <th>Mobile Number</th>
+      <th>Emergency Number</th>
       <th>Name</th>
-      <th>Edit</th>
-      <th>Block</th>
+      <th>Created At</th>
+      <th>Delete</th>
     </tr>
   </thead>
   <tbody>
@@ -17,9 +17,9 @@
 	      <td><%= user.email%></td>
 	      <td><%= user.phone_number%></td>
 	      <td><%= user.emergency_number%></td>
-	      <td><%= user.full_name%></td>
-	      <td><%= link_to 'edit', edit_admin_vehicle_path(vehicle) %></td>
-	      <td>Block</td>
+        <td><%= user.full_name%></td>
+	      <td><%= user.created_at%></td>
+	      <td><%= link_to 'delete', admin_user_path(user), method: :delete, data: { confirm: 'Are you sure?' } %></td>
 	    </tr>
     <%end%>
   </tbody>
