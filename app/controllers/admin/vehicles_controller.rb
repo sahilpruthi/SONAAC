@@ -3,7 +3,7 @@ class Admin::VehiclesController < ApplicationController
 	before_action :set_vehicle, except: %i(index vehicle_sheet)
 
 	def index
-		@vehicles = Vehicle.all
+		@vehicles = Vehicle.order(id: :desc)
 	end
 
 	def edit
@@ -13,8 +13,9 @@ class Admin::VehiclesController < ApplicationController
 	def show;end
 
 	def update
-		if @vehicle.update(vehicles_params)
-			redirect_to admin_vehicle_index_path
+		block_unblock = @vehicle.is_block ? false : true
+		if @vehicle.update_attributes(is_block: block_unblock)
+			redirect_to admin_vehicles_path
 		end
 	end
 

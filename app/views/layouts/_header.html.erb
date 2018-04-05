@@ -6,15 +6,17 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>                        
       </button>
-      <a class="navbar-brand" href="#">Portfolio</a>
+      <!-- <a class="navbar-brand" href="#">Sonaac</a> -->
     </div>
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav">
-        <li><%=  link_to 'Home', admin_home_path, class: "active"  if current_api_v1_user.present? %></li>
-        <li><%=  link_to 'Home', root_path, class: "active"  unless current_api_v1_user.present? %></li>
+        <li><%=  link_to 'Sonaac', admin_home_path, class: "active navbar-brand"  if current_api_v1_user.present? %></li>
+        <li><%=  link_to 'Sonaac', root_path, class: "active navbar-brand"  unless current_api_v1_user.present? %></li>
+        <% if current_api_v1_user.present? %>
         <li><%= link_to 'Vehicle', admin_vehicles_path %></li>
         <li><%= link_to 'Users', admin_users_path%></li>
    			<li><%= link_to 'Drivers', admin_drivers_path%></li>
+        <%end%>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li><%= link_to "Logout", admin_session_destory_path, :method => "DELETE" if current_api_v1_user.present?%></li>

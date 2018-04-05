@@ -3,7 +3,7 @@ class Admin::UsersController < ApplicationController
 	before_action :set_vehicle, except: %i(index)
 
 	def index
-		@users = User.all
+		@users = User.where(type: nil).order(id: :desc)
 	end
 
 	def edit
@@ -11,9 +11,9 @@ class Admin::UsersController < ApplicationController
 	end
 
 	def update
-		if @users.update(users_params)
-			flash[:success] = "User Updated Successfully"
-			redirect_to admin_vehicle_index_path
+		block_unblock = @vehicle.is_block ? false : true
+		if @user.update_attributes(is_block: block_unblock)
+			redirect_to admin_users_path
 		end
 	end
 

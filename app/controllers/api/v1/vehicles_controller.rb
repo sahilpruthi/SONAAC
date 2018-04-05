@@ -61,12 +61,12 @@ class Api::V1::VehiclesController < ApiController
   def search_vehicle
     destination_station = Station.find_by(name: vehicle_params[:destination])
     source_station = Station.find_by(name: vehicle_params[:source])
-    source_vehicles =  Vehicle.includes([:bus_stations, :stations]).where(
+    source_vehicles =  Vehicle.includes([:bus_stations, :stations]).where.not(
+      is_block: true).where(
       stations: { name: vehicle_params[:source] }
       )
-    destination_vehicles =  Vehicle.includes([:bus_stations, :stations]).where(
-      stations: { name: vehicle_params[:destination] }
-      )
+    destination_vehicles =  Vehicle.includes([:bus_stations, :stations]).where.not(
+      is_block: true).where(stations: { name: vehicle_params[:destination] })
     available_vehicle = source_vehicles & destination_vehicles
     available_vehicle = available_vehicle.select {
      |vehicle| vehicle.bus_stations.find_by(station_id: source_station.id).

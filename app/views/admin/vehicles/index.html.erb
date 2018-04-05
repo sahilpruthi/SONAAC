@@ -6,9 +6,8 @@
       <th>Registration Number</th>
       <th>Model Number</th>
       <th>Name</th>
-      <th>Edit</th>
+      <th>Block/Unblock</th>
       <th>Show Stations</th>
-      <!-- <th>Block</th> -->
     </tr>
   </thead>
   <tbody>
@@ -19,7 +18,8 @@
 	      <td><%= vehicle.registration_no%></td>
 	      <td><%= vehicle.model_no%></td>
 	      <td><%= vehicle.name%></td>
-	      <td><%= link_to 'edit', edit_admin_vehicle_path(vehicle) %></td>
+	      <!-- <td><%#= link_to 'edit', edit_admin_vehicle_path(vehicle) %></td> -->
+        <td><%= link_to vehicle.is_block ? 'Unblock' : 'Block' , admin_vehicle_path(vehicle), :method=> :put %></td>
         <td><%= link_to 'show stations', admin_vehicle_path(vehicle) %></td>
 	    </tr>
     <%end%>

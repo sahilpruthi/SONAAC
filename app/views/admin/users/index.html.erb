@@ -7,6 +7,7 @@
       <th>Emergency Number</th>
       <th>Name</th>
       <th>Created At</th>
+      <th>Block/Unblock</th>
       <th>Delete</th>
     </tr>
   </thead>
@@ -19,6 +20,7 @@
 	      <td><%= user.emergency_number%></td>
         <td><%= user.full_name%></td>
 	      <td><%= user.created_at%></td>
+        <td><%= link_to user.is_block ? 'Unblock' : 'Block' , admin_user_path(user), :method=> :put %></td>
 	      <td><%= link_to 'delete', admin_user_path(user), method: :delete, data: { confirm: 'Are you sure?' } %></td>
 	    </tr>
     <%end%>
