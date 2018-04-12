@@ -20,8 +20,6 @@ class Admin::VehiclesController < ApplicationController
 	end
 
 	def vehicle_sheet
-	  Vehicle.destroy_all
-	  Station.destroy_all
 	  Vehicle.import(params[:file])
   	redirect_to admin_home_path, notice: "Products imported."
 
