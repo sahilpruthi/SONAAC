@@ -43,7 +43,7 @@ namespace :import do
   end
 
    task bus_data_check: :environment do
-    spreadsheet = Roo::Spreadsheet.open("vendor/52-to-102.xlsx")
+    spreadsheet = Roo::Spreadsheet.open("vendor/1-to-51.xlsx")
     header = spreadsheet.sheet('Sheet1').row(1)
     (2..spreadsheet.last_row).each do |i|
       row = Hash[[header, spreadsheet.row(i)].transpose]
