@@ -41,8 +41,7 @@ class Vehicle < ApplicationRecord
         if row.dig('model_no').present?
           model_no = row.dig('model_no')
           registration_no = row.dig('registration_no')
-          vehicle_number = row.dig('vehicle_number') + i.to_s
-          # vehicle_number = Vehicle.find_by(vehicle_number: vehicle_number).present? ? vehicle_number + '@' + i.to_s : vehicle_number
+          vehicle_number = row.dig('vehicle_number') + registration_no.split('@')[1].to_s
 
             puts   registration_no 
             puts   registration_no 
