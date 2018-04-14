@@ -36,14 +36,28 @@ class Vehicle < ApplicationRecord
           puts "invalid"
         end
 
+        puts i 
+        puts i 
+        puts i 
+        puts i 
+        puts i 
+        puts i 
+        puts i 
+        puts i 
+        puts i 
+        puts i 
+        puts i 
+        puts i 
+        puts i 
+
         if row.dig('model_no').present?
-          model_no = row.dig('model_no') == 'Not-available' ? row.dig('model_no')+ i.to_s : row.dig('model_no')
-          registration_no = row.dig('registration_no') == 'Not-available' ? row.dig('registration_no') +i.to_s : row.dig('registration_no')
-          vehicle_number = row.dig('vehicle_number') == 'Not-available' ? row.dig('vehicle_number') + i.to_s : row.dig('vehicle_number')
-          vehicle_number = Vehicle.find_by(vehicle_number: vehicle_number).present? ? vehicle_number + '@' + i.to_s : vehicle_number
+          model_no = row.dig('model_no')
+          registration_no = row.dig('registration_no')
+          vehicle_number = row.dig('vehicle_number') + i.to_s
+          # vehicle_number = Vehicle.find_by(vehicle_number: vehicle_number).present? ? vehicle_number + '@' + i.to_s : vehicle_number
           begin
             vehicle = Vehicle.create(model_no: model_no,
-             registration_no: registration_no, vehicle_type:  row.dig('vehicle_type'),
+             registration_no: registration_no, vehicle_type: row.dig('vehicle_type'),
              vehicle_number: vehicle_number, name: row.dig('name(vehicle_name)'),
               bus_type: row.dig('bus_type'), service_no: row.dig('Service No'))
             bus_station  = vehicle.bus_stations.new(is_source: row.dig('is_source'),
