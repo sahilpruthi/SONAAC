@@ -36,25 +36,27 @@ class Vehicle < ApplicationRecord
           puts "invalid"
         end
 
-        puts i 
-        puts i 
-        puts i 
-        puts i 
-        puts i 
-        puts i 
-        puts i 
-        puts i 
-        puts i 
-        puts i 
-        puts i 
-        puts i 
-        puts i 
+
 
         if row.dig('model_no').present?
           model_no = row.dig('model_no')
           registration_no = row.dig('registration_no')
           vehicle_number = row.dig('vehicle_number') + i.to_s
           # vehicle_number = Vehicle.find_by(vehicle_number: vehicle_number).present? ? vehicle_number + '@' + i.to_s : vehicle_number
+
+            puts   registration_no 
+            puts   registration_no 
+            puts   registration_no 
+            puts   registration_no 
+            puts   registration_no 
+            puts   registration_no 
+            puts   registration_no 
+            puts   registration_no 
+            puts   registration_no 
+            puts   registration_no 
+            puts   registration_no 
+            puts   registration_no 
+            puts   registration_no
           begin
             vehicle = Vehicle.create(model_no: model_no,
              registration_no: registration_no, vehicle_type: row.dig('vehicle_type'),
