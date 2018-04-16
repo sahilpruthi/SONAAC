@@ -1,6 +1,11 @@
  <div class="jumbotron">
   <div class="container text-center">
     <h1>My Portfolio</h1>      
+    <% flash.each do |key, value| %>
+      <div class="<%= flash_class(key) %>">
+            <%= value %>
+      </div>
+	<% end %>
     <%= form_tag vehicle_sheet_admin_vehicles_path, multipart: true do %>
   		<%= file_field_tag :file %>
   		<%= submit_tag "Import" %>

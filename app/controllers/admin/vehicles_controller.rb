@@ -20,9 +20,16 @@ class Admin::VehiclesController < ApplicationController
 	end
 
 	def vehicle_sheet
-	  Vehicle.import(params[:file])
-  	redirect_to admin_home_path, notice: "Products imported."
-
+		file_status = ''
+		ActiveRecord::Base.transaction do
+		  file_status  = Vehicle.import(params[:file])
+		  if  file_status.include? 'at'
+		  	flash[:alert] = file_status
+		  	redirect_to admin_home_path
+		  else
+  		redirect_to admin_home_path, notice: "Vehicles imported Successfully."
+	  	end
+		end
 	end
 
 	private

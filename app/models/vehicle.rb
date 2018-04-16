@@ -43,21 +43,8 @@ class Vehicle < ApplicationRecord
           registration_no = row.dig('registration_no')
           vehicle_number = row.dig('vehicle_number') + registration_no.split('@')[1].to_s
 
-            puts   registration_no 
-            puts   registration_no 
-            puts   registration_no 
-            puts   registration_no 
-            puts   registration_no 
-            puts   registration_no 
-            puts   registration_no 
-            puts   registration_no 
-            puts   registration_no 
-            puts   registration_no 
-            puts   registration_no 
-            puts   registration_no 
-            puts   registration_no
           begin
-            vehicle = Vehicle.create(model_no: model_no,
+            vehicle = Vehicle.create!(model_no: model_no,
              registration_no: registration_no, vehicle_type: row.dig('vehicle_type'),
              vehicle_number: vehicle_number, name: row.dig('name(vehicle_name)'),
               bus_type: row.dig('bus_type'), service_no: row.dig('Service No'))
@@ -67,7 +54,8 @@ class Vehicle < ApplicationRecord
                 station_id: station.id, price: row.dig('Fare'), duration:row.dig('Duration'))
             bus_station.save!
           rescue =>error
-            puts error
+            error_message = error.message
+            return error.message + " at line " + i.to_s
           end
         else
           bus_station  = Vehicle.last.bus_stations.new(is_source: row.dig('is_source'),
