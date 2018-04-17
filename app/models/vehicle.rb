@@ -8,7 +8,7 @@ class Vehicle < ApplicationRecord
 
 	enum vehicle_type: %i(fourwheeler_local fourwheeler_outstation sevenwheeler_local sevenwheeler_outstations traveller bus_local bus_outstation)
 
-  validates :vehicle_type, :registration_no, :vehicle_number, presence: true
+  validates :vehicle_type, :registration_no, :model_no, :vehicle_number, presence: true
 	validates :registration_no, :vehicle_number, uniqueness: true
 
   CASE_NUMBER_RANGE = (1000..9999)
@@ -26,44 +26,37 @@ class Vehicle < ApplicationRecord
     # (2..1518).each do |i|
       row = Hash[[header, spreadsheet.row(i)].transpose]
       if row.dig('name(station_name)') != nil
+        arrival_time = row.dig('arrival_time') == nil ?  row.dig('departure_time') : row.dig('arrival_time')
+        departure_time = row.dig('departure_time') == nil ?  row.dig('arrival_time') : row.dig('departure_time')
         station = Station.find_or_create_by(name: row.dig('name(station_name)'))
-          arrival_time = row.dig('arrival_time') == nil ?  row.dig('departure_time') : row.dig('arrival_time')
-          departure_time = row.dig('departure_time') == nil ?  row.dig('arrival_time') : row.dig('departure_time')
-          puts arrival_time
-          puts departure_time
-        unless arrival_time.present? || departure_time.present?
-          puts i 
-          puts "invalid"
-        end
-
-
-
+        vehicle = ''
         if row.dig('model_no').present?
           model_no = row.dig('model_no')
-          registration_no = row.dig('registration_no')
-          vehicle_number = row.dig('vehicle_number') + registration_no.split('@')[1].to_s
-
-          begin
+          registration_no = row.dig('registration_no') +'see' + i.to_s
+          vehicle_number = row.dig('vehicle_number') + registration_no.split('@')[1].to_s + i.to_s + 'see'
             vehicle = Vehicle.create!(model_no: model_no,
              registration_no: registration_no, vehicle_type: row.dig('vehicle_type'),
              vehicle_number: vehicle_number, name: row.dig('name(vehicle_name)'),
               bus_type: row.dig('bus_type'), service_no: row.dig('Service No'))
-            bus_station  = vehicle.bus_stations.new(is_source: row.dig('is_source'),
+            bus_station  = vehicle.bus_stations.new(is_source: row.dig('is_source'),        
               is_destination: row.dig('is_destination'), arrival_time: arrival_time,
                departure_time: departure_time, sequence: row.dig('sequence'),
                 station_id: station.id, price: row.dig('Fare'), duration:row.dig('Duration'))
             bus_station.save!
-          rescue =>error
-            error_message = error.message
-            return error.message + " at line " + i.to_s
-          end
         else
           bus_station  = Vehicle.last.bus_stations.new(is_source: row.dig('is_source'),
               is_destination: row.dig('is_destination'), arrival_time: arrival_time,
                departure_time: departure_time, sequence: row.dig('sequence'), station_id: station.id,
                price: row.dig('Fare'), duration:row.dig('Duration') )
-          bus_station.save
+          bus_station.save!
         end
+      # rescue =>error
+      #   if vehicle.present?
+      #     vehicle.destroy
+      #   end
+      #   error_message = error.message
+      #   return error.message + " at line " + i.to_s
+      # end  
       end
     end
   end

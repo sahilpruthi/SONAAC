@@ -11,10 +11,8 @@ namespace :import do
         arrival_time =  DateTime.strptime(row.dig('arrival_time').to_s,'%s').strftime('%I:%M:%S %p')
         departure_time =  DateTime.strptime(row.dig('departure_time').to_s,'%s').strftime('%I:%M:%S %p')
       rescue => error
-        binding.pry
       end
       unless arrival_time.present? || departure_time.present?
-        binding.pry
       end
 
       if row.dig('model_no').present?
