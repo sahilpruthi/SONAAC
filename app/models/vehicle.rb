@@ -33,8 +33,8 @@ class Vehicle < ApplicationRecord
           vehicle = ''
           if row.dig('model_no').present?
             model_no = row.dig('model_no')
-            registration_no = row.dig('registration_no') +'see' + i.to_s
-            vehicle_number = row.dig('vehicle_number') + registration_no.split('@')[1].to_s + i.to_s + 'see'
+            registration_no = row.dig('registration_no')
+            vehicle_number = row.dig('vehicle_number') + registration_no.split('@')[1].to_s
               vehicle = Vehicle.create!(model_no: model_no,
                registration_no: registration_no, vehicle_type: row.dig('vehicle_type'),
                vehicle_number: vehicle_number, name: row.dig('name(vehicle_name)'),
