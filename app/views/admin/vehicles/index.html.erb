@@ -9,6 +9,7 @@
       <th>Vehicle Type</th>
       <th>Block/Unblock</th>
       <th>Show Stations</th>
+      <th>Delete</th>
     </tr>
   </thead>
   <tbody>
@@ -22,6 +23,8 @@
 	      <td><%= vehicle.vehicle_type%></td>
         <td><%= link_to vehicle.is_block ? 'Unblock' : 'Block' , admin_vehicle_path(vehicle), :method=> :put %></td>
         <td><%= link_to 'show stations', admin_vehicle_path(vehicle) %></td>
+        <td><%= link_to 'Delete',admin_vehicle_path(action: :delete, id: vehicle.id),method: :delete, data: {confirm: "Are you sure?"} %>
+</td>
 	    </tr>
     <%end%>
   </tbody>

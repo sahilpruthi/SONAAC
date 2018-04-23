@@ -19,6 +19,11 @@ class Admin::VehiclesController < ApplicationController
 		end
 	end
 
+	def destroy
+		@vehicle.destroy
+		redirect_to admin_vehicles_path
+	end
+
 	def vehicle_sheet
 		file_status = ''
 		ActiveRecord::Base.transaction do
