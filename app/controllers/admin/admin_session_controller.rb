@@ -20,6 +20,8 @@ class Admin::AdminSessionController < ApplicationController
 
 	def index;end
 
+	def privacy_policy;end
+
 	def destroy
     signed_out = (Devise.sign_out_all_scopes ? sign_out : sign_out(resource_name))
     flash[:success] = "logout successfully"

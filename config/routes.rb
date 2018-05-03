@@ -43,7 +43,7 @@ root to: 'admin/admin_session#index'
     post '/login', to: 'admin_session#login'
     get '/home', to: 'admin_session#home'
     delete '/session_destory', to: 'admin_session#destroy'
-
+    get '/privacy_policy', to: 'admin_session#privacy_policy'
     resources :drivers, only: %i(edit index update)
     resources :vehicles do
       collection do
